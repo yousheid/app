@@ -384,7 +384,7 @@
 
 <body class="bg-gray-100 h-screen">
 
-    <div class="container max-w-md mx-auto h-full bg-white rounded-lg shadow-md flex flex-col">
+    <div class="container mx-auto h-full w-full bg-white rounded-lg shadow-md flex flex-col">
 
         <!-- Top Bar -->
 
@@ -411,11 +411,13 @@
         <div class="flex items-center justify-between p-2 bg-teal-500 text-white">
 
             <div class="flex items-center space-x-4">
+                <i id="undo" class="fas fa-undo cursor-pointer"></i>
 
+                <i id="redo" class="fas fa-redo cursor-pointer"></i>
                 <i id="clipboard" class="fas fa-file-alt cursor-pointer"></i>
-
+              <i id="paste" class="fas fa-clipboard cursor-pointer"></i>
                 <i id="print" class="fas fa-print cursor-pointer"></i>
-
+ <i id="download" class="fas fa-download cursor-pointer"></i>
             </div>
 
         </div>
@@ -434,23 +436,18 @@
 
             <div class="flex items-center space-x-4">
 
-                <i id="clipboard" class="fas fa-clipboard cursor-pointer"></i>
+   <span id="wordCount">0 kata</span>
 
-                <i id="paste" class="fas fa-paste cursor-pointer"></i>
 
-                <i id="undo" class="fas fa-undo cursor-pointer"></i>
 
-                <i id="redo" class="fas fa-redo cursor-pointer"></i>
+
 
             </div>
 
             <div class="flex items-center space-x-4">
 
                 <i id="microphone" class="fas fa-microphone text-2xl cursor-pointer microphone-inactive"></i>
-
-                <i id="download" class="fas fa-download text-teal-500 text-2xl cursor-pointer"></i>
-
-                <span id="wordCount">0 kata</span>
+               
 
             </div>
 
