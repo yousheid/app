@@ -31,13 +31,14 @@
         <h1 class="text-4xl font-bold text-center mb-4">Nota Kasir</h1>
         <div class="bg-white text-teal-700 p-2 rounded mb-2 flex justify-between items-center">
             <select id="product" class="w-full bg-transparent focus:outline-none" onchange="calculateTotal()">
+                <option>Pilih Barang</option>
                 <option value="6000">Air isi ulang 19L</option>
                 <option value="5000">Air isi ulang 15L</option>
                 <option value="20000">Aqua</option>
                 <option value="20000">Gas Lpg 3kg</option>
                 <option value="20000">Lemineral</option>
             </select>
-            <input type="number" id="quantity" value="0" class="w-12 bg-transparent text-center focus:outline-none" oninput="calculateTotal()">
+            <input type="number" id="quantity" value="" placeholder="Qty" class="w-12 bg-transparent text-center focus:outline-none" oninput="calculateTotal()">
         </div>
         <div class="bg-white text-teal-700 p-2 rounded mb-2" id="price">
             Rp. 0
@@ -59,7 +60,7 @@
         <hr class="mb-2">
         <div id="nota-items">
             <div class="mb-2">
-                <div class="flex justify-between">
+                <div class="flex justify-between" id="nota-info">
                     <span>Air isi ulang 19L</span>
                     <span>Rp. 0</span>
                 </div>
