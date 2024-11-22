@@ -31,7 +31,6 @@
         <h1 class="text-4xl font-bold text-center mb-4">Nota Kasir</h1>
         <div class="bg-white text-teal-700 p-2 rounded mb-2 flex justify-between items-center">
             <select id="product" class="w-full bg-transparent focus:outline-none" onchange="calculateTotal()">
-                <option value="0">Pilih Barang</option>
                 <option value="6000">Air isi ulang 19L</option>
                 <option value="5000">Air isi ulang 15L</option>
                 <option value="20000">Aqua</option>
@@ -41,7 +40,7 @@
             <input type="number" id="quantity" value="0" class="w-12 bg-transparent text-center focus:outline-none" oninput="calculateTotal()">
         </div>
         <div class="bg-white text-teal-700 p-2 rounded mb-2" id="price">
-            Rp. 0
+            Rp. 6.000
         </div>
          <div class="bg-white text-teal-700 p-2 rounded mb-2 flex justify-between items-center">
         <input type="number" id="payment" value="0" placeholder="Uang Bayar" class="w-full bg-transparent text-center focus:outline-none" oninput="calculateChange()">
@@ -62,16 +61,16 @@
             <div class="mb-2">
                 <div class="flex justify-between">
                     <span>Air isi ulang 19L</span>
-                    <span>Rp. 0</span>
+                    <span>Rp. 6.000</span>
                 </div>
-                <div class="text-xs text-gray-500"></div>
+                <div class="text-xs text-gray-500">1 x Rp. 6.000</div>
             </div>
         </div>
         <hr class="mb-2">
         <div class="mb-2">
             <div class="flex justify-between">
                 <span>Total</span>
-                <span id="nota-total">Rp. 0</span>
+                <span id="nota-total">Rp. 6.000</span>
             </div>
         </div>
         <div class="mb-2">
