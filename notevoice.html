@@ -18,6 +18,7 @@
         </div>
         <div class="text-white relative">
             <i id="menuButton" class="fas fa-bars cursor-pointer"></i>
+            <i id="fullscreenButton" class="fas fa-expand cursor-pointer"></i>
             <div id="menu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden">
                 <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Tools 1</a>
                 <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Tools 2</a>
@@ -141,6 +142,16 @@
                 micButton.classList.remove('text-red-500');
                 micButton.classList.add('text-green-500');
                 isMicActive = true;
+            }
+        });
+                document.getElementById('fullscreenButton').addEventListener('click', function() {
+            const mainContent = document.getElementById('mainContent');
+            if (!document.fullscreenElement) {
+                mainContent.requestFullscreen().catch(err => {
+                    alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+                });
+            } else {
+                document.exitFullscreen();
             }
         });
     </script>
