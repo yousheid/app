@@ -1,0 +1,148 @@
+<html>
+<head>
+    <title>Toolbox - Voice To Text</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <header class="bg-gradient-to-r from-purple-500 to-red-500 p-4 flex items-center justify-between">
+        <div class="text-white text-2xl font-bold flex items-center">
+            <i class="fas fa-toolbox mr-2"></i>
+          <span>YOU</span>Tool
+        </div>
+        <div class="text-white">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+    <main class="max-w-4xl mx-auto mt-10 p-4 bg-white rounded shadow">
+        <h1 class="text-3xl font-bold mb-2">CATATAN</h1>
+        <p class="text-gray-600 mb-4">Voice: suara koma akan di ubah ke tanda "," lalu suara titik akan di ubah ke tanda "."</p>
+        <label for="text" class="block text-lg font-semibold mb-2">Text</label>
+        <textarea id="text" class="w-full h-80 p-4 border border-gray-300 rounded" placeholder="Suara akan ditulis disini"></textarea>
+        <div class="flex justify-center space-x-4 mt-4">
+            <button id="copyButton" class="text-gray-500 hover:text-gray-700 text-2xl">
+                <i class="fas fa-copy"></i>
+            </button>
+            <button id="saveButton" class="text-gray-500 hover:text-gray-700 text-2xl">
+                <i class="fas fa-save"></i>
+            </button>
+            <button id="clearButton" class="text-gray-500 hover:text-gray-700 text-2xl">
+                <i class="fas fa-trash"></i>
+            </button>
+            <button id="undoButton" class="text-gray-500 hover:text-gray-700 text-2xl">
+                <i class="fas fa-undo"></i>
+            </button>
+            <button id="redoButton" class="text-gray-500 hover:text-gray-700 text-2xl">
+                <i class="fas fa-redo"></i>
+            </button>
+            <button id="micButton" class="text-green-500 text-2xl">
+                <i class="fas fa-microphone"></i>
+            </button>
+        </div>
+    </main>
+    <footer class="text-center mt-10 text-gray-600">
+        2013-2024 Youshe
+    </footer>
+
+    <script>
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = 'id-ID';
+        recognition.continuous = true;
+        recognition.interimResults = false;
+
+        let lastSpeechTime = Date.now();
+        let isMicActive = true;
+
+        recognition.start();
+
+        recognition.onresult = function(event) {
+            let transcript = event.results[event.results.length - 1][0].transcript;
+            transcript = transcript.replace(/koma/gi, ',').replace(/titik/gi, '.').replace(/enter/gi, '\n\n');
+            transcript = transcript.replace(/(^\s*\w|[.!?]\s*\w)/g, function(c) { return c.toUpperCase(); });
+            document.getElementById('text').value += transcript;
+            lastSpeechTime = Date.now();
+        };
+
+        recognition.onspeechend = function() {
+            const currentTime = Date.now();
+            if (currentTime - lastSpeechTime > 5000) {
+                document.getElementById('text').value += '\n';
+            }
+            lastSpeechTime = currentTime;
+        };
+
+        recognition.onerror = function(event) {
+            alert('Terjadi kesalahan saat mengenali suara: ' + event.error);
+        };
+
+        document.getElementById('copyButton').addEventListener('click', function() {
+            const textArea = document.getElementById('text');
+            textArea.select();
+            document.execCommand('copy');
+            alert('Teks disalin ke clipboard');
+        });
+
+        document.getElementById('saveButton').addEventListener('click', function() {
+            const textArea = document.getElementById('text').value;
+            const blob = new Blob([textArea], { type: 'text/plain' });
+            const anchor = document.createElement('a');
+            anchor.download = 'text.txt';
+            anchor.href = window.URL.createObjectURL(blob);
+            anchor.target = '_blank';
+            anchor.style.display = 'none'; // just to be safe!
+            document.body.appendChild(anchor);
+            anchor.click();
+            document.body.removeChild(anchor);
+        });
+
+        document.getElementById('clearButton').addEventListener('click', function() {
+            document.getElementById('text').value = '';
+        });
+
+        let undoStack = [];
+        let redoStack = [];
+
+        document.getElementById('text').addEventListener('input', function() {
+            undoStack.push(this.value);
+            redoStack = [];
+        });
+
+        document.getElementById('undoButton').addEventListener('click', function() {
+            if (undoStack.length > 1) {
+                redoStack.push(undoStack.pop());
+                document.getElementById('text').value = undoStack[undoStack.length - 1];
+            }
+        });
+
+        document.getElementById('redoButton').addEventListener('click', function() {
+            if (redoStack.length > 0) {
+                const redoValue = redoStack.pop();
+                undoStack.push(redoValue);
+                document.getElementById('text').value = redoValue;
+            }
+        });
+
+        document.getElementById('micButton').addEventListener('click', function() {
+            const micButton = document.getElementById('micButton');
+
+            if (isMicActive) {
+                recognition.stop();
+                micButton.classList.remove('text-green-500');
+                micButton.classList.add('text-red-500');
+                isMicActive = false;
+            } else {
+                recognition.start();
+                micButton.classList.remove('text-red-500');
+                micButton.classList.add('text-green-500');
+                isMicActive = true;
+            }
+        });
+    </script>
+</body>
+</html>
