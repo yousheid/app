@@ -144,6 +144,22 @@
                 isMicActive = true;
             }
         });
+        document.getElementById('menuButton').addEventListener('click', function() {
+            const menu = document.getElementById('menu');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+            }
+        });
+
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('menu');
+            const menuButton = document.getElementById('menuButton');
+            if (!menu.contains(event.target) && !menuButton.contains(event.target)) {
+                menu.classList.add('hidden');
+            }
+        });
                 document.getElementById('fullscreenButton').addEventListener('click', function() {
             const mainContent = document.getElementById('mainContent');
             if (!document.fullscreenElement) {
