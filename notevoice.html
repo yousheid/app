@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Note Voice - Voice To Text</title>
+    <title>YOUTool - Catatan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
@@ -8,15 +8,38 @@
         body {
             font-family: 'Roboto', sans-serif;
         }
+        .hidden {
+            display: none;
+        }
+        .alert {
+            position: fixed;
+            top: 80px; /* Adjusted to be above the main content */
+            right: 20px;
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .alert.success {
+            background-color: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+        .fullscreen-textarea {
+            height: calc(100vh - 200px);
+        }
     </style>
 </head>
 <body class="bg-gray-100">
     <header class="bg-gradient-to-r from-purple-500 to-red-500 p-4 flex items-center justify-between">
         <div class="text-white text-2xl font-bold flex items-center">
             <i class="fas fa-toolbox mr-2"></i>
-          <span>YOU</span>Tool
+            YOUTool
         </div>
-        <div class="text-white relative">
+        <div class="text-white relative flex items-center space-x-4">
             <i id="menuButton" class="fas fa-bars cursor-pointer"></i>
             <i id="fullscreenButton" class="fas fa-expand cursor-pointer"></i>
             <div id="menu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden">
@@ -26,11 +49,11 @@
             </div>
         </div>
     </header>
-    <main class="max-w-4xl mx-auto mt-10 p-4 bg-white rounded shadow">
+    <main id="mainContent" class="max-w-4xl mx-auto mt-10 p-4 bg-white rounded shadow">
         <h1 class="text-3xl font-bold mb-2">CATATAN</h1>
         <p class="text-gray-600 mb-4">Voice: suara koma akan di ubah ke tanda "," lalu suara titik akan di ubah ke tanda "."</p>
         <label for="text" class="block text-lg font-semibold mb-2">Text</label>
-        <textarea id="text" class="w-full h-80 p-4 border border-gray-300 rounded" placeholder="Suara akan ditulis disini"></textarea>
+        <textarea id="text" class="w-full h-40 p-4 border border-gray-300 rounded" placeholder="terjemahan suara atau ketik disini.."></textarea>
         <div class="flex justify-center space-x-4 mt-4">
             <button id="copyButton" class="text-gray-500 hover:text-gray-700 text-2xl">
                 <i class="fas fa-copy"></i>
@@ -41,6 +64,11 @@
             <button id="clearButton" class="text-gray-500 hover:text-gray-700 text-2xl">
                 <i class="fas fa-trash"></i>
             </button>
+            <button id="undoButton" class="text-gray-500 hover:text-gray-700 text-2xl">
+                <i class="fas fa-undo"></i>
+            </button>
+            <button id="redoButton" class="text-gray-500 hover:text-gray-700 text-2xl">
+                <i class="fas fa-redo"></i>
             </button>
             <button id="micButton" class="text-green-500 text-2xl">
                 <i class="fas fa-microphone"></i>
@@ -48,7 +76,7 @@
         </div>
     </main>
     <footer class="text-center mt-10 text-gray-600">
-        2013-2024 Youshe
+        2013-2024 YOUTool
     </footer>
 
     <script>
@@ -64,7 +92,7 @@
 
         recognition.onresult = function(event) {
             let transcript = event.results[event.results.length - 1][0].transcript;
-            transcript = transcript.replace(/koma/gi, ',').replace(/titik/gi, '.').replace(/enter/gi, '\n\n');
+            transcript = transcript.replace(/koma/gi, ',').replace(/titik/gi, '.');
             transcript = transcript.replace(/(^\s*\w|[.!?]\s*\w)/g, function(c) { return c.toUpperCase(); });
             document.getElementById('text').value += transcript;
             lastSpeechTime = Date.now();
@@ -79,14 +107,14 @@
         };
 
         recognition.onerror = function(event) {
-            alert('Terjadi kesalahan saat mengenali suara: ' + event.error);
+            showAlert('Terjadi kesalahan saat mengenali suara: ' + event.error, 'error');
         };
 
         document.getElementById('copyButton').addEventListener('click', function() {
             const textArea = document.getElementById('text');
             textArea.select();
             document.execCommand('copy');
-            alert('Teks disalin ke clipboard');
+            showAlert('Teks disalin ke clipboard', 'success');
         });
 
         document.getElementById('saveButton').addEventListener('click', function() {
@@ -100,10 +128,12 @@
             document.body.appendChild(anchor);
             anchor.click();
             document.body.removeChild(anchor);
+            showAlert('Teks disimpan sebagai text.txt', 'success');
         });
 
         document.getElementById('clearButton').addEventListener('click', function() {
             document.getElementById('text').value = '';
+            showAlert('Teks dihapus', 'success');
         });
 
         let undoStack = [];
@@ -137,13 +167,16 @@
                 micButton.classList.remove('text-green-500');
                 micButton.classList.add('text-red-500');
                 isMicActive = false;
+                showAlert('Microphone dimatikan', 'error');
             } else {
                 recognition.start();
                 micButton.classList.remove('text-red-500');
                 micButton.classList.add('text-green-500');
                 isMicActive = true;
+                showAlert('Microphone diaktifkan', 'success');
             }
         });
+
         document.getElementById('menuButton').addEventListener('click', function() {
             const menu = document.getElementById('menu');
             if (menu.classList.contains('hidden')) {
@@ -160,16 +193,30 @@
                 menu.classList.add('hidden');
             }
         });
-                document.getElementById('fullscreenButton').addEventListener('click', function() {
+
+        document.getElementById('fullscreenButton').addEventListener('click', function() {
             const mainContent = document.getElementById('mainContent');
+            const textArea = document.getElementById('text');
             if (!document.fullscreenElement) {
                 mainContent.requestFullscreen().catch(err => {
-                    alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+                    showAlert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`, 'error');
                 });
+                textArea.classList.add('fullscreen-textarea');
             } else {
                 document.exitFullscreen();
+                textArea.classList.remove('fullscreen-textarea');
             }
         });
+
+        function showAlert(message, type) {
+            const alert = document.createElement('div');
+            alert.className = `alert ${type === 'success' ? 'success' : ''}`;
+            alert.innerHTML = message;
+            document.body.appendChild(alert);
+            setTimeout(() => {
+                alert.remove();
+            }, 3000);
+        }
     </script>
 </body>
 </html>
