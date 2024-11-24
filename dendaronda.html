@@ -298,6 +298,7 @@
             tbody.innerHTML = '';
 
             data.forEach(row => {
+                const bayarClass = row.bayar === 'Rp. 0' ? 'text-white' : '';
                 const rowHTML = `<tr data-nama="${row.nama}">
                     <td class="py-2 px-4 bg-blue-500 text-white border border-gray-300 nama">${row.nama}</td>
                     <td class="py-2 px-4 bg-blue-500 text-white border border-gray-300 text-center blok">${row.blok}</td>
@@ -309,7 +310,7 @@
                     <td class="py-2 px-4 border border-gray-300 bulanan">${row.bulanan}</td>
                     <td class="py-2 px-4 border border-gray-300 tcl">${row.tcl}</td>
                     <td class="py-2 px-4 bg-green-500 text-white border border-gray-300 kurang">${row.kurang}</td>
-                    <td class="py-2 px-4 border border-gray-300 bayar">${row.bayar}</td>
+                    <td class="py-2 px-4 border border-gray-300 bayar ${bayarClass}">${row.bayar}</td>
                 </tr>`;
                 tbody.insertAdjacentHTML('beforeend', rowHTML);
             });
