@@ -1,0 +1,295 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Denda Ronda</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+    <style>
+        @media print {
+            @page {
+                size: A4;
+                margin: 10mm;
+            }
+            body {
+                -webkit-print-color-adjust: exact;
+                transform: scale(0.65);
+                transform-origin: top left;
+            }
+            table {
+                width: auto;
+            }
+            th, td {
+                white-space: nowrap;
+            }
+            .bayar {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="container mx-auto">
+        <h1 class="text-2xl font-bold mb-6">Laporan Denda Ronda</h1>
+        <form id="dataForm" class="bg-white p-6 rounded shadow-md mb-6">
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label for="nama" class="block text-gray-700">Nama</label>
+                    <select id="nama" class="w-full p-2 border border-gray-300 rounded">
+                        <option value="Iswadi">Iswadi</option>
+                        <option value="Didik">Didik</option>
+                        <option value="Bayu A.N">Bayu A.N</option>
+                        <option value="M. Rodhi">M. Rodhi</option>
+                        <option value="Agus Gunawan">Agus Gunawan</option>
+                        <option value="Heru">Heru</option>
+                        <option value="Bagas">Bagas</option>
+                        <option value="Budi Setiawan">Budi Setiawan</option>
+                        <option value="Tuhu">Tuhu</option>
+                        <option value="Niki Wahyudi">Niki Wahyudi</option>
+                        <option value="Ciptono">Ciptono</option>
+                        <option value="Ardi">Ardi</option>
+                        <option value="Suwoko">Suwoko</option>
+                        <option value="M. Syafrudin">M. Syafrudin</option>
+                        <option value="Akbar">Akbar</option>
+                        <option value="Bambang">Bambang</option>
+                        <option value="Thomas H">Thomas H</option>
+                        <option value="Susyanto">Susyanto</option>
+                        <option value="M. Dicky">M. Dicky</option>
+                        <option value="Wahyudi">Wahyudi</option>
+                        <option value="R. Agung P">R. Agung P</option>
+                        <option value="Medi">Medi</option>
+                        <option value="Agus Priyanto">Agus Priyanto</option>
+                        <option value="Eko Santoso">Eko Santoso</option>
+                        <option value="Bondan">Bondan</option>
+                        <option value="Arif Fajar S">Arif Fajar S</option>
+                        <option value="Ariyanto">Ariyanto</option>
+                        <option value="Zulham">Zulham</option>
+                        <option value="Yuyun">Yuyun</option>
+                        <option value="Wisnu">Wisnu</option>
+                        <option value="Ihsan">Ihsan</option>
+                        <option value="Hari Susanto">Hari Susanto</option>
+                        <option value="Tika">Tika</option>
+                        <option value="Cahyo">Cahyo</option>
+                        <option value="Eko Hartanto">Eko Hartanto</option>
+                        <option value="Nesia">Nesia</option>
+                        <option value="Eko">Eko</option>
+                        <option value="Candra Kav">Candra Kav</option>
+                        <option value="Widia">Widia</option>
+                        <option value="Amin">Amin</option>
+                        <option value="Rinaldi">Rinaldi</option>
+                        <option value="Andre">Andre</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="blok" class="block text-gray-700">Blok</label>
+                    <input type="text" id="blok" class="w-full p-2 border border-gray-300 rounded" readonly>
+                </div>
+            </div>
+            <div class="grid grid-cols-5 gap-4 mb-4">
+                <div>
+                    Minggu 1 <input type="checkbox" id="m1" value="5000" class="mr-2">
+                </div>
+                <div>
+                    Minggu 2 <input type="checkbox" id="m2" value="5000" class="mr-2">
+                </div>
+                <div>
+                    Minggu 3 <input type="checkbox" id="m3" value="5000" class="mr-2">
+                </div>
+                <div>
+                      Minggu 4 <input type="checkbox" id="m4" value="5000" class="mr-2">
+                </div>
+                <div>
+                    Bulanan <input type="checkbox" id="bulanan" value="25000" class="mr-2">
+                </div>
+            </div>
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <div>
+                    <label for="blnk" class="block text-gray-700">Bulan Lalu</label>
+                    <input type="number" id="blnk" class="w-full p-2 border border-gray-300 rounded">
+                </div>
+                <div>
+                    <label for="tcl" class="block text-gray-700" >Bulan Ini</label>
+                    <input type="number" id="tcl" class="w-full p-2 border border-gray-300 rounded" readonly>
+                </div>
+                <div>
+                    <label for="kurang" class="block text-gray-700">Kekurangan</label>
+                    <input type="number" id="kurang" class="w-full p-2 border border-gray-300 rounded" readonly>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <div>
+                    <label for="bayar" class="block text-gray-700">Bayar</label>
+                    <input type="number" id="bayar" class="w-full p-2 border border-gray-300 rounded">
+                </div>
+                <div class="col-span-2 flex items-end">
+                    <button type="button" id="simpan" class="bg-blue-500 text-white px-4 py-2 rounded mr-2">
+                        <i class="fas fa-save"></i>
+                    </button>
+                    <button type="button" id="export" class="bg-green-500 text-white px-4 py-2 rounded mr-2">
+                        <i class="fas fa-download"></i>
+                    </button>
+                    <button type="button" id="print" class="bg-gray-500 text-white px-4 py-2 rounded">
+                        <i class="fas fa-print"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <table id="laporanTable" class="min-w-full bg-white border border-gray-300">
+            <thead>
+                <tr class="bg-green-800 text-white">
+                    <th class="py-2 px-4 border border-gray-300">Nama</th>
+                    <th class="py-2 px-4 border border-gray-300 text-center">Blok</th>
+                    <th class="py-2 px-4 border border-gray-300">Bulan Lalu</th>
+                    <th class="py-2 px-4 border border-gray-300">M1</th>
+                    <th class="py-2 px-4 border border-gray-300">M2</th>
+                    <th class="py-2 px-4 border border-gray-300">M3</th>
+                    <th class="py-2 px-4 border border-gray-300">M4</th>
+                    <th class="py-2 px-4 border border-gray-300">Bulanan</th>
+                    <th class="py-2 px-4 border border-gray-300">Bulan Ini</th>
+                    <th class="py-2 px-4 border border-gray-300">Kurangan</th>
+                    <th class="py-2 px-4 border border-gray-300 bayar">Bayar</th>
+                </tr>
+            </thead>
+            <tbody id="laporanBody">
+                <!-- Data will be appended here -->
+            </tbody>
+        </table>
+    </div>
+    <script>
+        document.getElementById('nama').addEventListener('change', function() {
+            const blokMapping = {
+                'Iswadi': 'C12',
+                'Didik': 'A8',
+                'Bayu A.N': 'A11',
+                'M. Rodhi': 'Kav',
+                'Agus Gunawan': 'Kav',
+                'Heru': 'Kav',
+                'Bagas': 'Kav',
+                'Budi Setiawan': 'C7',
+                'Tuhu': 'C8',
+                'Niki Wahyudi': 'C6',
+                'Ciptono': 'C3',
+                'Ardi': 'C4',
+                'Suwoko': 'C6',
+                'M. Syafrudin': 'A12',
+                'Akbar': 'B13',
+                'Bambang': 'B12',
+                'Thomas H': 'B9',
+                'Susyanto': 'B11',
+                'M. Dicky': 'B7',
+                'Wahyudi': 'RA1',
+                'R. Agung P': 'A10',
+                'Medi': 'RB2',
+                'Agus Priyanto': 'B3',
+                'Eko Santoso': 'A4B',
+                'Bondan': 'B4',
+                'Arif Fajar S': 'A7',
+                'Ariyanto': 'A9',
+                'Zulham': 'B5',
+                'Yuyun': 'Kav',
+                'Wisnu': 'Kav',
+                'Ihsan': 'RB1',
+                'Hari Susanto': 'A12',
+                'Tika': 'C2',
+                'Cahyo': 'RC1',
+                'Eko Hartanto': 'B10',
+                'Nesia': 'B1',
+                'Eko': 'A2',
+                'Candra Kav': 'Kav',
+                'Widia': 'A4a',
+                'Amin': 'Kav',
+                'Rinaldi': 'Kav',
+                'Andre': 'C5'
+            };
+            document.getElementById('blok').value = blokMapping[this.value];
+        });
+
+        document.querySelectorAll('#m1, #m2, #m3, #m4, #bulanan').forEach(checkbox => {
+            checkbox.addEventListener('change', calculateTCL);
+        });
+
+        document.getElementById('blnk').addEventListener('input', calculateKurang);
+        document.getElementById('bayar').addEventListener('input', calculateKurang);
+
+        function calculateTCL() {
+            let tcl = 0;
+            document.querySelectorAll('#m1, #m2, #m3, #m4, #bulanan').forEach(checkbox => {
+                if (checkbox.checked) {
+                    tcl += parseInt(checkbox.value);
+                }
+            });
+            document.getElementById('tcl').value = tcl;
+            calculateKurang();
+        }
+
+        function calculateKurang() {
+            const blnk = parseInt(document.getElementById('blnk').value) || 0;
+            const tcl = parseInt(document.getElementById('tcl').value) || 0;
+            const bayar = parseInt(document.getElementById('bayar').value) || 0;
+            document.getElementById('kurang').value = blnk + tcl - bayar;
+        }
+
+        function formatCurrency(value) {
+            return 'Rp. ' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        document.getElementById('simpan').addEventListener('click', function() {
+            const nama = document.getElementById('nama').value;
+            const blok = document.getElementById('blok').value;
+            const blnk = document.getElementById('blnk').value;
+            const m1 = document.getElementById('m1').checked ? 5000 : 0;
+            const m2 = document.getElementById('m2').checked ? 5000 : 0;
+            const m3 = document.getElementById('m3').checked ? 5000 : 0;
+            const m4 = document.getElementById('m4').checked ? 5000 : 0;
+            const bulanan = document.getElementById('bulanan').checked ? 25000 : 0;
+            const tcl = document.getElementById('tcl').value;
+            const kurang = document.getElementById('kurang').value;
+            const bayar = document.getElementById('bayar').value;
+
+            const existingRow = document.querySelector(`#laporanBody tr[data-nama="${nama}"]`);
+            if (existingRow) {
+                existingRow.querySelector('.blok').textContent = blok;
+                existingRow.querySelector('.blnk').textContent = formatCurrency(blnk);
+                existingRow.querySelector('.m1').textContent = m1;
+                existingRow.querySelector('.m2').textContent = m2;
+                existingRow.querySelector('.m3').textContent = m3;
+                existingRow.querySelector('.m4').textContent = m4;
+                existingRow.querySelector('.bulanan').textContent = formatCurrency(bulanan);
+                existingRow.querySelector('.tcl').textContent = formatCurrency(tcl);
+                existingRow.querySelector('.kurang').textContent = formatCurrency(kurang);
+                existingRow.querySelector('.bayar').textContent = formatCurrency(bayar);
+            } else {
+                const row = `<tr data-nama="${nama}">
+                    <td class="py-2 px-4 border border-gray-300">${nama}</td>
+                    <td class="py-2 px-4 border border-gray-300 text-center blok">${blok}</td>
+                    <td class="py-2 px-4 border border-gray-300 blnk">${formatCurrency(blnk)}</td>
+                    <td class="py-2 px-4 border border-gray-300 m1">${m1}</td>
+                    <td class="py-2 px-4 border border-gray-300 m2">${m2}</td>
+                    <td class="py-2 px-4 border border-gray-300 m3">${m3}</td>
+                    <td class="py-2 px-4 border border-gray-300 m4">${m4}</td>
+                    <td class="py-2 px-4 border border-gray-300 bulanan">${formatCurrency(bulanan)}</td>
+                    <td class="py-2 px-4 border border-gray-300 tcl">${formatCurrency(tcl)}</td>
+                    <td class="py-2 px-4 border border-gray-300 kurang">${formatCurrency(kurang)}</td>
+                    <td class="py-2 px-4 border border-gray-300 bayar">${formatCurrency(bayar)}</td>
+                </tr>`;
+                document.getElementById('laporanBody').insertAdjacentHTML('beforeend', row);
+            }
+        });
+
+        document.getElementById('export').addEventListener('click', function() {
+            const table = document.getElementById('laporanTable');
+            const wb = XLSX.utils.table_to_book(table, {sheet: "Sheet JS"});
+            XLSX.writeFile(wb, 'Laporan.xlsx');
+        });
+
+        document.getElementById('print').addEventListener('click', function() {
+            const printContent = document.getElementById('laporanTable').outerHTML;
+            const originalContent = document.body.innerHTML;
+            document.body.innerHTML = printContent;
+            window.print();
+            document.body.innerHTML = originalContent;
+        });
+    </script>
+</body>
+</html>
