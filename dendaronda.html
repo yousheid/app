@@ -16,6 +16,10 @@
                 -webkit-print-color-adjust: exact;
                 transform: scale(0.65);
                 transform-origin: top left;
+                margin-left: 100px;
+            }
+            #dataForm, h1, .print-hidden {
+                display: none;
             }
             table {
                 width: auto;
@@ -27,6 +31,17 @@
                 width: 100%;
             }
         }
+        th, td {
+            white-space: nowrap;
+        }
+        .nama { width: 165px; }
+        .blok { width: 45px; }
+        .blnk { width: 100px; }
+        .kurang { width: 100px; }
+        .bayar { width: 100px; }
+        .m1, .m2, .m3, .m4 { width: 45px; }
+        .tcl { width: 85px; }
+        .bulanan { width: 95px; }
     </style>
 </head>
 <body class="bg-gray-100 p-6">
@@ -138,16 +153,16 @@
         <table id="laporanTable" class="min-w-full bg-white border border-gray-300">
             <thead>
                 <tr class="bg-green-800 text-white">
-                    <th class="py-2 px-4 border border-gray-300">Nama</th>
-                    <th class="py-2 px-4 border border-gray-300 text-center">Blok</th>
-                    <th class="py-2 px-4 border border-gray-300">Bulan Lalu</th>
-                    <th class="py-2 px-4 border border-gray-300">M1</th>
-                    <th class="py-2 px-4 border border-gray-300">M2</th>
-                    <th class="py-2 px-4 border border-gray-300">M3</th>
-                    <th class="py-2 px-4 border border-gray-300">M4</th>
-                    <th class="py-2 px-4 border border-gray-300">Bulanan</th>
-                    <th class="py-2 px-4 border border-gray-300">Bulan Ini</th>
-                    <th class="py-2 px-4 border border-gray-300">Kurangan</th>
+                    <th class="py-2 px-4 border border-gray-300 nama">Nama</th>
+                    <th class="py-2 px-4 border border-gray-300 text-center blok">Blok</th>
+                    <th class="py-2 px-4 border border-gray-300 blnk">Bulan Lalu</th>
+                    <th class="py-2 px-4 border border-gray-300 m1">M1</th>
+                    <th class="py-2 px-4 border border-gray-300 m2">M2</th>
+                    <th class="py-2 px-4 border border-gray-300 m3">M3</th>
+                    <th class="py-2 px-4 border border-gray-300 m4">M4</th>
+                    <th class="py-2 px-4 border border-gray-300 bulanan">Bulanan</th>
+                    <th class="py-2 px-4 border border-gray-300 tcl">Bulan Ini</th>
+                    <th class="py-2 px-4 border border-gray-300 kurang">Kurangan</th>
                     <th class="py-2 px-4 border border-gray-300 bayar">Bayar</th>
                 </tr>
             </thead>
@@ -234,48 +249,70 @@
             return 'Rp. ' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
 
-        document.getElementById('simpan').addEventListener('click', function() {
+        function saveData() {
             const nama = document.getElementById('nama').value;
             const blok = document.getElementById('blok').value;
             const blnk = document.getElementById('blnk').value;
-            const m1 = document.getElementById('m1').checked ? 5000 : 0;
-            const m2 = document.getElementById('m2').checked ? 5000 : 0;
-            const m3 = document.getElementById('m3').checked ? 5000 : 0;
-            const m4 = document.getElementById('m4').checked ? 5000 : 0;
+            const m1 = document.getElementById('m1').checked ? 'Rp. 5000' : 'Rp. 0';
+            const m2 = document.getElementById('m2').checked ? 'Rp. 5000' : 'Rp. 0';
+            const m3 = document.getElementById('m3').checked ? 'Rp. 5000' : 'Rp. 0';
+            const m4 = document.getElementById('m4').checked ? 'Rp. 5000' : 'Rp. 0';
             const bulanan = document.getElementById('bulanan').checked ? 25000 : 0;
             const tcl = document.getElementById('tcl').value;
             const kurang = document.getElementById('kurang').value;
             const bayar = document.getElementById('bayar').value;
 
-            const existingRow = document.querySelector(`#laporanBody tr[data-nama="${nama}"]`);
-            if (existingRow) {
-                existingRow.querySelector('.blok').textContent = blok;
-                existingRow.querySelector('.blnk').textContent = formatCurrency(blnk);
-                existingRow.querySelector('.m1').textContent = m1;
-                existingRow.querySelector('.m2').textContent = m2;
-                existingRow.querySelector('.m3').textContent = m3;
-                existingRow.querySelector('.m4').textContent = m4;
-                existingRow.querySelector('.bulanan').textContent = formatCurrency(bulanan);
-                existingRow.querySelector('.tcl').textContent = formatCurrency(tcl);
-                existingRow.querySelector('.kurang').textContent = formatCurrency(kurang);
-                existingRow.querySelector('.bayar').textContent = formatCurrency(bayar);
+            const rowData = {
+                nama,
+                blok,
+                blnk: formatCurrency(blnk),
+                m1,
+                m2,
+                m3,
+                m4,
+                bulanan: formatCurrency(bulanan),
+                tcl: formatCurrency(tcl),
+                kurang: formatCurrency(kurang),
+                bayar: formatCurrency(bayar)
+            };
+
+            let data = JSON.parse(localStorage.getItem('laporanData')) || [];
+            const existingIndex = data.findIndex(item => item.nama === nama);
+
+            if (existingIndex !== -1) {
+                data[existingIndex] = rowData;
             } else {
-                const row = `<tr data-nama="${nama}">
-                    <td class="py-2 px-4 border border-gray-300">${nama}</td>
-                    <td class="py-2 px-4 border border-gray-300 text-center blok">${blok}</td>
-                    <td class="py-2 px-4 border border-gray-300 blnk">${formatCurrency(blnk)}</td>
-                    <td class="py-2 px-4 border border-gray-300 m1">${m1}</td>
-                    <td class="py-2 px-4 border border-gray-300 m2">${m2}</td>
-                    <td class="py-2 px-4 border border-gray-300 m3">${m3}</td>
-                    <td class="py-2 px-4 border border-gray-300 m4">${m4}</td>
-                    <td class="py-2 px-4 border border-gray-300 bulanan">${formatCurrency(bulanan)}</td>
-                    <td class="py-2 px-4 border border-gray-300 tcl">${formatCurrency(tcl)}</td>
-                    <td class="py-2 px-4 border border-gray-300 kurang">${formatCurrency(kurang)}</td>
-                    <td class="py-2 px-4 border border-gray-300 bayar">${formatCurrency(bayar)}</td>
-                </tr>`;
-                document.getElementById('laporanBody').insertAdjacentHTML('beforeend', row);
+                data.push(rowData);
             }
-        });
+
+            localStorage.setItem('laporanData', JSON.stringify(data));
+            renderTable();
+        }
+
+        function renderTable() {
+            const data = JSON.parse(localStorage.getItem('laporanData')) || [];
+            const tbody = document.getElementById('laporanBody');
+            tbody.innerHTML = '';
+
+            data.forEach(row => {
+                const rowHTML = `<tr data-nama="${row.nama}">
+                    <td class="py-2 px-4 bg-blue-500 text-white border border-gray-300 nama">${row.nama}</td>
+                    <td class="py-2 px-4 bg-blue-500 text-white border border-gray-300 text-center blok">${row.blok}</td>
+                    <td class="py-2 px-4 border border-gray-300 blnk">${row.blnk}</td>
+                    <td class="py-2 px-4 border border-gray-300 m1">${row.m1}</td>
+                    <td class="py-2 px-4 border border-gray-300 m2">${row.m2}</td>
+                    <td class="py-2 px-4 border border-gray-300 m3">${row.m3}</td>
+                    <td class="py-2 px-4 border border-gray-300 m4">${row.m4}</td>
+                    <td class="py-2 px-4 border border-gray-300 bulanan">${row.bulanan}</td>
+                    <td class="py-2 px-4 border border-gray-300 tcl">${row.tcl}</td>
+                    <td class="py-2 px-4 bg-green-500 text-white border border-gray-300 kurang">${row.kurang}</td>
+                    <td class="py-2 px-4 border border-gray-300 bayar">${row.bayar}</td>
+                </tr>`;
+                tbody.insertAdjacentHTML('beforeend', rowHTML);
+            });
+        }
+
+        document.getElementById('simpan').addEventListener('click', saveData);
 
         document.getElementById('export').addEventListener('click', function() {
             const table = document.getElementById('laporanTable');
@@ -290,6 +327,8 @@
             window.print();
             document.body.innerHTML = originalContent;
         });
+
+        window.addEventListener('load', renderTable);
     </script>
 </body>
 </html>
