@@ -144,6 +144,9 @@
                     <button type="button" id="export" class="bg-green-500 text-white px-4 py-2 rounded mr-2">
                         <i class="fas fa-download"></i>
                     </button>
+                    <button type="button" id="clear" class="bg-red-500 text-white px-4 py-2 rounded mr-2">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
                     <button type="button" id="print" class="bg-gray-500 text-white px-4 py-2 rounded">
                         <i class="fas fa-print"></i>
                     </button>
@@ -252,15 +255,15 @@
         function saveData() {
             const nama = document.getElementById('nama').value;
             const blok = document.getElementById('blok').value;
-            const blnk = document.getElementById('blnk').value;
+            const blnk = document.getElementById('blnk').value || 0;
             const m1 = document.getElementById('m1').checked ? 'Rp. 5000' : 'Rp. 0';
             const m2 = document.getElementById('m2').checked ? 'Rp. 5000' : 'Rp. 0';
             const m3 = document.getElementById('m3').checked ? 'Rp. 5000' : 'Rp. 0';
             const m4 = document.getElementById('m4').checked ? 'Rp. 5000' : 'Rp. 0';
             const bulanan = document.getElementById('bulanan').checked ? 25000 : 0;
-            const tcl = document.getElementById('tcl').value;
-            const kurang = document.getElementById('kurang').value;
-            const bayar = document.getElementById('bayar').value;
+            const tcl = document.getElementById('tcl').value || 0;
+            const kurang = document.getElementById('kurang').value || 0;
+            const bayar = document.getElementById('bayar').value || 0;
 
             const rowData = {
                 nama,
@@ -312,6 +315,11 @@
             });
         }
 
+        function clearTable() {
+            localStorage.removeItem('laporanData');
+            renderTable();
+        }
+
         document.getElementById('simpan').addEventListener('click', saveData);
 
         document.getElementById('export').addEventListener('click', function() {
@@ -319,6 +327,8 @@
             const wb = XLSX.utils.table_to_book(table, {sheet: "Sheet JS"});
             XLSX.writeFile(wb, 'Laporan.xlsx');
         });
+
+        document.getElementById('clear').addEventListener('click', clearTable);
 
         document.getElementById('print').addEventListener('click', function() {
             const printContent = document.getElementById('laporanTable').outerHTML;
