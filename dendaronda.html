@@ -19,7 +19,6 @@
                 -webkit-print-color-adjust: exact;
                 transform: scale(0.65);
                 transform-origin: top left;
-                
             }
             #dataForm, h1, .print-hidden {
                 display: none;
@@ -54,54 +53,55 @@
             <div class="grid grid-cols-2 gap-4 mb-4">
                 <div>
                     <label for="nama" class="block text-gray-700">Nama</label>
-                    <select id="nama" class="w-full p-2 border border-gray-300 rounded">
-                        <option value="Iswadi">Iswadi</option>
-                        <option value="Didik">Didik</option>
-                        <option value="Bayu A.N">Bayu A.N</option>
-                        <option value="M. Rodhi">M. Rodhi</option>
-                        <option value="Agus Gunawan">Agus Gunawan</option>
-                        <option value="Heru">Heru</option>
-                        <option value="Bagas">Bagas</option>
-                        <option value="Budi Setiawan">Budi Setiawan</option>
-                        <option value="Tuhu">Tuhu</option>
-                        <option value="Niki Wahyudi">Niki Wahyudi</option>
-                        <option value="Ciptono">Ciptono</option>
-                        <option value="Ardi">Ardi</option>
-                        <option value="Suwoko">Suwoko</option>
-                        <option value="M. Syafrudin">M. Syafrudin</option>
-                        <option value="Akbar">Akbar</option>
-                        <option value="Bambang">Bambang</option>
-                        <option value="Thomas H">Thomas H</option>
-                        <option value="Susyanto">Susyanto</option>
-                        <option value="M. Dicky">M. Dicky</option>
-                        <option value="Wahyudi">Wahyudi</option>
-                        <option value="R. Agung P">R. Agung P</option>
-                        <option value="Medi">Medi</option>
-                        <option value="Agus Priyanto">Agus Priyanto</option>
-                        <option value="Eko Santoso">Eko Santoso</option>
-                        <option value="Bondan">Bondan</option>
-                        <option value="Arif Fajar S">Arif Fajar S</option>
-                        <option value="Ariyanto">Ariyanto</option>
-                        <option value="Zulham">Zulham</option>
-                        <option value="Yuyun">Yuyun</option>
-                        <option value="Wisnu">Wisnu</option>
-                        <option value="Ihsan">Ihsan</option>
-                        <option value="Hari Susanto">Hari Susanto</option>
-                        <option value="Tika">Tika</option>
-                        <option value="Cahyo">Cahyo</option>
-                        <option value="Eko Hartanto">Eko Hartanto</option>
-                        <option value="Nesia">Nesia</option>
-                        <option value="Eko">Eko</option>
-                        <option value="Candra Kav">Candra Kav</option>
-                        <option value="Widia">Widia</option>
-                        <option value="Amin">Amin</option>
-                        <option value="Rinaldi">Rinaldi</option>
-                        <option value="Andre">Andre</option>
-                    </select>
+                    <input list="namaList" id="nama" class="w-full p-2 border border-gray-300 rounded">
+                    <datalist id="namaList">
+                        <option value="Iswadi">
+                        <option value="Didik">
+                        <option value="Bayu A.N">
+                        <option value="M. Rodhi">
+                        <option value="Agus Gunawan">
+                        <option value="Heru">
+                        <option value="Bagas">
+                        <option value="Budi Setiawan">
+                        <option value="Tuhu">
+                        <option value="Niki Wahyudi">
+                        <option value="Ciptono">
+                        <option value="Ardi">
+                        <option value="Suwoko">
+                        <option value="M. Syafrudin">
+                        <option value="Akbar">
+                        <option value="Bambang">
+                        <option value="Thomas H">
+                        <option value="Susyanto">
+                        <option value="M. Dicky">
+                        <option value="Wahyudi">
+                        <option value="R. Agung P">
+                        <option value="Medi">
+                        <option value="Agus Priyanto">
+                        <option value="Eko Santoso">
+                        <option value="Bondan">
+                        <option value="Arif Fajar S">
+                        <option value="Ariyanto">
+                        <option value="Zulham">
+                        <option value="Yuyun">
+                        <option value="Wisnu">
+                        <option value="Ihsan">
+                        <option value="Hari Susanto">
+                        <option value="Tika">
+                        <option value="Cahyo">
+                        <option value="Eko Hartanto">
+                        <option value="Nesia">
+                        <option value="Eko">
+                        <option value="Candra Kav">
+                        <option value="Widia">
+                        <option value="Amin">
+                        <option value="Rinaldi">
+                        <option value="Andre">
+                    </datalist>
                 </div>
                 <div>
                     <label for="blok" class="block text-gray-700">Blok</label>
-                    <input type="text" id="blok" class="w-full p-2 border border-gray-300 rounded" readonly>
+                    <input type="text" id="blok" class="w-full p-2 border border-gray-300 rounded">
                 </div>
             </div>
             <div class="grid grid-cols-5 gap-4 mb-4">
@@ -178,7 +178,7 @@
         </table>
     </div>
     <script>
-        document.getElementById('nama').addEventListener('change', function() {
+        document.getElementById('nama').addEventListener('input', function() {
             const blokMapping = {
                 'Iswadi': 'C12',
                 'Didik': 'A8',
@@ -223,7 +223,12 @@
                 'Rinaldi': 'Kav',
                 'Andre': 'C5'
             };
-            document.getElementById('blok').value = blokMapping[this.value];
+            const nama = this.value;
+            if (blokMapping[nama]) {
+                document.getElementById('blok').value = blokMapping[nama];
+            } else {
+                document.getElementById('blok').value = '';
+            }
         });
 
         document.querySelectorAll('#m1, #m2, #m3, #m4, #bulanan').forEach(checkbox => {
