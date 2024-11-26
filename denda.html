@@ -32,7 +32,8 @@
 </style>
 </head>
 <body class="bg-gray-100 p-6">
-    <div class="container mx-auto print-hidden">
+    <div class="container mx-auto">
+<div id="dataForm">
         <h1 class="text-2xl font-bold mb-4">Import and Display Table</h1>
         <div class="mb-4">
             <input type="file" id="fileInput" class="mb-4 p-2 border border-gray-300 rounded" />
@@ -100,6 +101,7 @@
             <i class="fas fa-exclamation-triangle"></i>
             <span id="notificationMessage"></span>
             <button id="closeNotification" class="ml-4 text-white"><i class="fas fa-times"></i></button>
+</div>
         </div>
         <table id="dataTable" class="min-w-full bg-white border border-gray-300 rounded border-collapse">
             <thead class="bg-blue-500 text-white">
