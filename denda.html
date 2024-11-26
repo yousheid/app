@@ -141,6 +141,7 @@ padding-right:20px;
         <div class="dataTable">
         <table id="dataTable" class="min-w-full bg-white border border-gray-300 rounded border-collapse">
             <thead class="bg-blue-500 text-white">
+              <tr class="bg-white border-white-0 text-left text-black"><th colspan="11">  Denda Ronda <span id="printDate"></span></th></td>
                 <tr>
                     <th class="py-2 px-4 border border-gray-300">Nama</th>
                     <th class="py-2 px-4 border border-gray-300">Blok</th>
@@ -218,6 +219,8 @@ padding-right:20px;
             };
 
             reader.readAsArrayBuffer(file);
+                          showNotification('Data berhasil di import');
+                return;
         });
 
         document.getElementById('nama').addEventListener('input', function() {
@@ -250,6 +253,8 @@ padding-right:20px;
 
         document.querySelectorAll('#m1, #m2, #m3, #m4, #bln').forEach(checkbox => {
             checkbox.addEventListener('change', function() {
+                showNotification('Untuk petugas ronda harian I,II,III,IV sedangkan Bln untuk yang tidak tugas ronda');
+                return;
                 calculateSekarang();
                 calculateKekurangan();
             });
@@ -315,8 +320,8 @@ padding-right:20px;
 
         document.getElementById('downloadBtn').addEventListener('click', function() {
             const table = document.getElementById('dataTable');
-            const wb = XLSX.utils.table_to_book(table, { sheet: "Sheet1" });
-            XLSX.writeFile(wb, 'table_data.xlsx');
+            const wb = XLSX.utils.table_to_book(table, { sheet: "2025" });
+            XLSX.writeFile(wb, 'Denda-Ronda.xlsx');
         });
 
         document.getElementById('printBtn').addEventListener('click', function() {
@@ -325,6 +330,8 @@ padding-right:20px;
             document.body.innerHTML = printContent;
             window.print();
             document.body.innerHTML = originalContent;
+                          showNotification('Proses cetak sudah selesai');
+                return;
         });
 
         document.getElementById('deleteBtn').addEventListener('click', function() {
@@ -418,6 +425,8 @@ padding-right:20px;
             document.getElementById('tableBody').innerHTML = '';
             localStorage.removeItem('tableData');
             updateTotals();
+                showNotification('Berhasil menghapus semua isi data tabel');
+                return;
         });
 
         document.getElementById('deleteByNameBtn').addEventListener('click', function() {
@@ -431,11 +440,18 @@ padding-right:20px;
             rows.forEach(row => {
                 if (row.cells[0].textContent === nama) {
                     row.remove();
+                  showNotification(`${nama} berhasil dihapus`);
+                return;
                 }
             });
 
             saveTableToLocalStorage();
             updateTotals();
+        });
+         document.addEventListener('DOMContentLoaded', (event) => {
+            const printDateElement = document.getElementById('printDate');
+            const currentDate = new Date();
+            printDateElement.textContent = currentDate.toLocaleDateString();
         });
     </script>
 </body>
