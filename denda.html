@@ -70,8 +70,13 @@
             <button id="printBtn" class="p-2 bg-yellow-500 text-white rounded"><i class="fas fa-print"></i> Print</button>
             <button id="deleteBtn" class="p-2 bg-red-500 text-white rounded"><i class="fas fa-trash"></i> Delete</button>
         </div>
+        <div id="notification" class="hidden fixed top-4 right-4 bg-red-500 text-white p-4 rounded shadow-lg flex items-center space-x-2">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span id="notificationMessage"></span>
+            <button id="closeNotification" class="ml-4 text-white"><i class="fas fa-times"></i></button>
+        </div>
         <table id="dataTable" class="min-w-full bg-white border border-gray-300 rounded border-collapse">
-            <thead>
+            <thead class="bg-blue-500 text-white">
                 <tr>
                     <th class="py-2 px-4 border border-gray-300">Nama</th>
                     <th class="py-2 px-4 border border-gray-300">Blok</th>
@@ -89,7 +94,7 @@
             <tbody id="tableBody">
                 <!-- Table rows will be inserted here -->
             </tbody>
-            <tfoot>
+            <tfoot class="bg-black text-white">
                 <tr>
                     <td class="py-2 px-4 border border-gray-300 font-bold">Total</td>
                     <td class="py-2 px-4 border border-gray-300"></td>
@@ -193,7 +198,7 @@
             const blok = document.getElementById('blok').value;
 
             if (!nama || !blok) {
-                alert('Nama dan Blok wajib diisi.');
+                showNotification('Nama dan Blok wajib diisi.');
                 return;
             }
 
@@ -328,6 +333,20 @@
             if (isNaN(value)) return value;
             return 'Rp' + parseInt(value).toLocaleString('id-ID');
         }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const notificationMessage = document.getElementById('notificationMessage');
+            notificationMessage.textContent = message;
+            notification.classList.remove('hidden');
+            setTimeout(() => {
+                notification.classList.add('hidden');
+            }, 5000);
+        }
+
+        document.getElementById('closeNotification').addEventListener('click', function() {
+            document.getElementById('notification').classList.add('hidden');
+        });
 
         document.addEventListener('DOMContentLoaded', loadTableFromLocalStorage);
     </script>
