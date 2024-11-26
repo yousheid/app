@@ -1,0 +1,335 @@
+<html>
+<head>
+    <title>Import and Display Table</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="container mx-auto">
+        <h1 class="text-2xl font-bold mb-4">Import and Display Table</h1>
+        <div class="mb-4">
+            <input type="file" id="fileInput" class="mb-4 p-2 border border-gray-300 rounded" />
+        </div>
+        <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+                <label for="nama" class="block mb-2">Nama:</label>
+                <input type="text" id="nama" class="mb-4 p-2 border border-gray-300 rounded w-full" list="namaList" required />
+                <datalist id="namaList"></datalist>
+            </div>
+            <div>
+                <label for="blok" class="block mb-2">Blok:</label>
+                <input type="text" id="blok" class="mb-4 p-2 border border-gray-300 rounded w-full" required />
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+                <label for="blnK" class="block mb-2">Sebelumnya:</label>
+                <input type="number" id="blnK" class="mb-4 p-2 border border-gray-300 rounded w-full" value="0" />
+            </div>
+            <div>
+                <label for="blnS" class="block mb-2">Sekarang:</label>
+                <input type="number" id="blnS" class="mb-4 p-2 border border-gray-300 rounded w-full" readonly />
+            </div>
+        </div>
+        <div class="grid grid-cols-5 gap-4 mb-4">
+            <div>
+                <label for="m1" class="block mb-2">I:</label>
+                <input type="checkbox" id="m1" class="mb-4" value="5000" />
+            </div>
+            <div>
+                <label for="m2" class="block mb-2">II:</label>
+                <input type="checkbox" id="m2" class="mb-4" value="5000" />
+            </div>
+            <div>
+                <label for="m3" class="block mb-2">III:</label>
+                <input type="checkbox" id="m3" class="mb-4" value="5000" />
+            </div>
+            <div>
+                <label for="m4" class="block mb-2">IV:</label>
+                <input type="checkbox" id="m4" class="mb-4" value="5000" />
+            </div>
+            <div>
+                <label for="bln" class="block mb-2">Bln:</label>
+                <input type="checkbox" id="bln" class="mb-4" value="25000" />
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+                <label for="kurang" class="block mb-2">Kekurangan:</label>
+                <input type="number" id="kurang" class="mb-4 p-2 border border-gray-300 rounded w-full bg-red-200" readonly />
+            </div>
+            <div>
+                <label for="bayar" class="block mb-2">Bayar:</label>
+                <input type="number" id="bayar" class="mb-4 p-2 border border-gray-300 rounded w-full bg-green-200" value="0" />
+            </div>
+        </div>
+        <div class="mb-4 flex space-x-4">
+            <button id="saveBtn" class="p-2 bg-blue-500 text-white rounded"><i class="fas fa-save"></i> Simpan</button>
+            <button id="downloadBtn" class="p-2 bg-green-500 text-white rounded"><i class="fas fa-download"></i> Download</button>
+            <button id="printBtn" class="p-2 bg-yellow-500 text-white rounded"><i class="fas fa-print"></i> Print</button>
+            <button id="deleteBtn" class="p-2 bg-red-500 text-white rounded"><i class="fas fa-trash"></i> Delete</button>
+        </div>
+        <table id="dataTable" class="min-w-full bg-white border border-gray-300 rounded border-collapse">
+            <thead>
+                <tr>
+                    <th class="py-2 px-4 border border-gray-300">Nama</th>
+                    <th class="py-2 px-4 border border-gray-300">Blok</th>
+                    <th class="py-2 px-4 border border-gray-300">Blnk</th>
+                    <th class="py-2 px-4 border border-gray-300">M1</th>
+                    <th class="py-2 px-4 border border-gray-300">M2</th>
+                    <th class="py-2 px-4 border border-gray-300">M3</th>
+                    <th class="py-2 px-4 border border-gray-300">M4</th>
+                    <th class="py-2 px-4 border border-gray-300">Bln</th>
+                    <th class="py-2 px-4 border border-gray-300">Blns</th>
+                    <th class="py-2 px-4 border border-gray-300">Kurang</th>
+                    <th class="py-2 px-4 border border-gray-300">Bayar</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- Table rows will be inserted here -->
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="py-2 px-4 border border-gray-300 font-bold">Total</td>
+                    <td class="py-2 px-4 border border-gray-300"></td>
+                    <td class="py-2 px-4 border border-gray-300" id="totalBlnk"></td>
+                    <td class="py-2 px-4 border border-gray-300"></td>
+                    <td class="py-2 px-4 border border-gray-300"></td>
+                    <td class="py-2 px-4 border border-gray-300"></td>
+                    <td class="py-2 px-4 border border-gray-300"></td>
+                    <td class="py-2 px-4 border border-gray-300"></td>
+                    <td class="py-2 px-4 border border-gray-300" id="totalBlns"></td>
+                    <td class="py-2 px-4 border border-gray-300" id="totalKurang"></td>
+                    <td class="py-2 px-4 border border-gray-300" id="totalBayar"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                const data = new Uint8Array(event.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[firstSheetName];
+                const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+                const tableBody = document.getElementById('tableBody');
+                tableBody.innerHTML = '';
+
+                const namaList = document.getElementById('namaList');
+                namaList.innerHTML = '';
+
+                jsonData.slice(1).forEach(row => {
+                    const tr = document.createElement('tr');
+                    row.forEach((cell, index) => {
+                        const td = document.createElement('td');
+                        td.className = 'py-2 px-4 border border-gray-300';
+                        if (index === 2 || index === 8 || index === 9 || index === 10) {
+                            td.textContent = formatCurrency(cell);
+                        } else {
+                            td.textContent = cell;
+                        }
+                        tr.appendChild(td);
+                    });
+                    tableBody.appendChild(tr);
+
+                    const option = document.createElement('option');
+                    option.value = row[0];
+                    namaList.appendChild(option);
+                });
+
+                saveTableToLocalStorage();
+                updateTotals();
+            };
+
+            reader.readAsArrayBuffer(file);
+        });
+
+        document.getElementById('nama').addEventListener('input', function() {
+            const nama = this.value;
+            const rows = document.querySelectorAll('#dataTable tbody tr');
+            rows.forEach(row => {
+                if (row.cells[0].textContent === nama) {
+                    document.getElementById('blok').value = row.cells[1].textContent;
+                }
+            });
+        });
+
+        function calculateSekarang() {
+            const m1 = document.getElementById('m1').checked ? parseInt(document.getElementById('m1').value) : 0;
+            const m2 = document.getElementById('m2').checked ? parseInt(document.getElementById('m2').value) : 0;
+            const m3 = document.getElementById('m3').checked ? parseInt(document.getElementById('m3').value) : 0;
+            const m4 = document.getElementById('m4').checked ? parseInt(document.getElementById('m4').value) : 0;
+            const bln = document.getElementById('bln').checked ? parseInt(document.getElementById('bln').value) : 0;
+            const sekarang = m1 + m2 + m3 + m4 + bln;
+            document.getElementById('blnS').value = sekarang;
+        }
+
+        function calculateKekurangan() {
+            const blnK = parseInt(document.getElementById('blnK').value);
+            const blnS = parseInt(document.getElementById('blnS').value);
+            const bayar = parseInt(document.getElementById('bayar').value);
+            const kurang = blnK + blnS - bayar;
+            document.getElementById('kurang').value = kurang;
+        }
+
+        document.querySelectorAll('#m1, #m2, #m3, #m4, #bln').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                calculateSekarang();
+                calculateKekurangan();
+            });
+        });
+
+        document.getElementById('bayar').addEventListener('input', calculateKekurangan);
+
+        document.getElementById('saveBtn').addEventListener('click', function() {
+            const nama = document.getElementById('nama').value;
+            const blok = document.getElementById('blok').value;
+
+            if (!nama || !blok) {
+                alert('Nama dan Blok wajib diisi.');
+                return;
+            }
+
+            const blnK = document.getElementById('blnK').value;
+            const m1 = document.getElementById('m1').checked ? document.getElementById('m1').value : 0;
+            const m2 = document.getElementById('m2').checked ? document.getElementById('m2').value : 0;
+            const m3 = document.getElementById('m3').checked ? document.getElementById('m3').value : 0;
+            const m4 = document.getElementById('m4').checked ? document.getElementById('m4').value : 0;
+            const bln = document.getElementById('bln').checked ? document.getElementById('bln').value : 0;
+            const blnS = document.getElementById('blnS').value;
+            const kurang = document.getElementById('kurang').value;
+            const bayar = document.getElementById('bayar').value;
+
+            const rows = document.querySelectorAll('#dataTable tbody tr');
+            let rowExists = false;
+
+            rows.forEach(row => {
+                if (row.cells[0].textContent === nama && row.cells[1].textContent === blok) {
+                    rowExists = true;
+                    row.cells[2].textContent = formatCurrency(blnK);
+                    row.cells[3].textContent = formatCurrency(m1);
+                    row.cells[4].textContent = formatCurrency(m2);
+                    row.cells[5].textContent = formatCurrency(m3);
+                    row.cells[6].textContent = formatCurrency(m4);
+                    row.cells[7].textContent = formatCurrency(bln);
+                    row.cells[8].textContent = formatCurrency(blnS);
+                    row.cells[9].textContent = formatCurrency(kurang);
+                    row.cells[10].textContent = formatCurrency(bayar);
+                }
+            });
+
+            if (!rowExists) {
+                const tr = document.createElement('tr');
+                [nama, blok, blnK, m1, m2, m3, m4, bln, blnS, kurang, bayar].forEach((cellValue, index) => {
+                    const td = document.createElement('td');
+                    td.className = 'py-2 px-4 border border-gray-300';
+                    if (index === 2 || index === 8 || index === 9 || index === 10) {
+                        td.textContent = formatCurrency(cellValue);
+                    } else {
+                        td.textContent = cellValue;
+                    }
+                    tr.appendChild(td);
+                });
+                document.getElementById('tableBody').appendChild(tr);
+            }
+
+            saveTableToLocalStorage();
+            updateTotals();
+        });
+
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const table = document.getElementById('dataTable');
+            const wb = XLSX.utils.table_to_book(table, { sheet: "Sheet1" });
+            XLSX.writeFile(wb, 'table_data.xlsx');
+        });
+
+        document.getElementById('printBtn').addEventListener('click', function() {
+            const printContent = document.getElementById('dataTable').outerHTML;
+            const originalContent = document.body.innerHTML;
+            document.body.innerHTML = printContent;
+            window.print();
+            document.body.innerHTML = originalContent;
+        });
+
+        document.getElementById('deleteBtn').addEventListener('click', function() {
+            document.getElementById('tableBody').innerHTML = '';
+            localStorage.removeItem('tableData');
+            updateTotals();
+        });
+
+        function saveTableToLocalStorage() {
+            const tableBody = document.getElementById('tableBody');
+            const rows = tableBody.querySelectorAll('tr');
+            const tableData = [];
+
+            rows.forEach(row => {
+                const rowData = [];
+                row.querySelectorAll('td').forEach(cell => {
+                    rowData.push(cell.textContent);
+                });
+                tableData.push(rowData);
+            });
+
+            localStorage.setItem('tableData', JSON.stringify(tableData));
+        }
+
+        function loadTableFromLocalStorage() {
+            const tableData = JSON.parse(localStorage.getItem('tableData'));
+            if (tableData) {
+                const tableBody = document.getElementById('tableBody');
+                tableBody.innerHTML = '';
+
+                tableData.forEach(rowData => {
+                    const tr = document.createElement('tr');
+                    rowData.forEach((cellValue, index) => {
+                        const td = document.createElement('td');
+                        td.className = 'py-2 px-4 border border-gray-300';
+                        if (index === 2 || index === 8 || index === 9 || index === 10) {
+                            td.textContent = formatCurrency(cellValue);
+                        } else {
+                            td.textContent = cellValue;
+                        }
+                        tr.appendChild(td);
+                    });
+                    tableBody.appendChild(tr);
+                });
+            }
+            updateTotals();
+        }
+
+        function updateTotals() {
+            const rows = document.querySelectorAll('#dataTable tbody tr');
+            let totalKurang = 0;
+            let totalBayar = 0;
+            let totalBlnk = 0;
+            let totalBlns = 0;
+
+            rows.forEach(row => {
+                totalKurang += parseInt(row.cells[9].textContent.replace(/[^0-9]/g, '')) || 0;
+                totalBayar += parseInt(row.cells[10].textContent.replace(/[^0-9]/g, '')) || 0;
+                totalBlnk += parseInt(row.cells[2].textContent.replace(/[^0-9]/g, '')) || 0;
+                totalBlns += parseInt(row.cells[8].textContent.replace(/[^0-9]/g, '')) || 0;
+            });
+
+            document.getElementById('totalKurang').textContent = formatCurrency(totalKurang);
+            document.getElementById('totalBayar').textContent = formatCurrency(totalBayar);
+            document.getElementById('totalBlnk').textContent = formatCurrency(totalBlnk);
+            document.getElementById('totalBlns').textContent = formatCurrency(totalBlns);
+        }
+
+        function formatCurrency(value) {
+            if (isNaN(value)) return value;
+            return 'Rp' + parseInt(value).toLocaleString('id-ID');
+        }
+
+        document.addEventListener('DOMContentLoaded', loadTableFromLocalStorage);
+    </script>
+</body>
+</html>
