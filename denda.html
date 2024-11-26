@@ -4,6 +4,34 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+<style>
+        @media print {
+            @page {
+                size: A4;
+                margin: 10mm;
+                margin-top: 20px;
+                margin-left: 100px;
+                margin-bottom: 20px;
+            }
+            body {
+                -webkit-print-color-adjust: exact;
+                transform: scale(0.65);
+                transform-origin: top left;
+            }
+            #dataForm, h1, .print-hidden {
+                display: none;
+            }
+            table {
+                width: auto;
+            }
+            th, td {
+                white-space: nowrap;
+            }
+            .bayar {
+                width: 100%;
+            }
+        }
+</style>
 </head>
 <body class="bg-gray-100 p-6">
     <div class="container mx-auto">
