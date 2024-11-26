@@ -14,12 +14,12 @@
         <div class="grid grid-cols-2 gap-4 mb-4">
             <div>
                 <label for="nama" class="block mb-2">Nama:</label>
-                <input type="text" id="nama" class="mb-4 p-2 border border-gray-300 rounded w-full" list="namaList" />
+                <input type="text" id="nama" class="mb-4 p-2 border border-gray-300 rounded w-full" list="namaList" required />
                 <datalist id="namaList"></datalist>
             </div>
             <div>
                 <label for="blok" class="block mb-2">Blok:</label>
-                <input type="text" id="blok" class="mb-4 p-2 border border-gray-300 rounded w-full" />
+                <input type="text" id="blok" class="mb-4 p-2 border border-gray-300 rounded w-full" required />
             </div>
         </div>
         <div class="grid grid-cols-2 gap-4 mb-4">
@@ -57,11 +57,11 @@
         <div class="grid grid-cols-2 gap-4 mb-4">
             <div>
                 <label for="kurang" class="block mb-2">Kekurangan:</label>
-                <input type="number" id="kurang" class="mb-4 p-2 border border-gray-300 rounded w-full" readonly />
+                <input type="number" id="kurang" class="mb-4 p-2 border border-gray-300 rounded w-full bg-red-200" readonly />
             </div>
             <div>
                 <label for="bayar" class="block mb-2">Bayar:</label>
-                <input type="number" id="bayar" class="mb-4 p-2 border border-gray-300 rounded w-full" value="0" />
+                <input type="number" id="bayar" class="mb-4 p-2 border border-gray-300 rounded w-full bg-green-200" value="0" />
             </div>
         </div>
         <div class="mb-4 flex space-x-4">
@@ -70,25 +70,40 @@
             <button id="printBtn" class="p-2 bg-yellow-500 text-white rounded"><i class="fas fa-print"></i> Print</button>
             <button id="deleteBtn" class="p-2 bg-red-500 text-white rounded"><i class="fas fa-trash"></i> Delete</button>
         </div>
-        <table id="dataTable" class="min-w-full bg-white border border-gray-300 rounded">
+        <table id="dataTable" class="min-w-full bg-white border border-gray-300 rounded border-collapse">
             <thead>
                 <tr>
-                    <th class="py-2 px-4 border-b">Nama</th>
-                    <th class="py-2 px-4 border-b">Blok</th>
-                    <th class="py-2 px-4 border-b">Blnk</th>
-                    <th class="py-2 px-4 border-b">M1</th>
-                    <th class="py-2 px-4 border-b">M2</th>
-                    <th class="py-2 px-4 border-b">M3</th>
-                    <th class="py-2 px-4 border-b">M4</th>
-                    <th class="py-2 px-4 border-b">Bln</th>
-                    <th class="py-2 px-4 border-b">Blns</th>
-                    <th class="py-2 px-4 border-b">Kurang</th>
-                    <th class="py-2 px-4 border-b">Bayar</th>
+                    <th class="py-2 px-4 border border-gray-300">Nama</th>
+                    <th class="py-2 px-4 border border-gray-300">Blok</th>
+                    <th class="py-2 px-4 border border-gray-300">Blnk</th>
+                    <th class="py-2 px-4 border border-gray-300">M1</th>
+                    <th class="py-2 px-4 border border-gray-300">M2</th>
+                    <th class="py-2 px-4 border border-gray-300">M3</th>
+                    <th class="py-2 px-4 border border-gray-300">M4</th>
+                    <th class="py-2 px-4 border border-gray-300">Bln</th>
+                    <th class="py-2 px-4 border border-gray-300">Blns</th>
+                    <th class="py-2 px-4 border border-gray-300">Kurang</th>
+                    <th class="py-2 px-4 border border-gray-300">Bayar</th>
                 </tr>
             </thead>
             <tbody id="tableBody">
                 <!-- Table rows will be inserted here -->
             </tbody>
+            <tfoot>
+                <tr>
+                    <td class="py-2 px-4 border border-gray-300 font-bold">Total</td>
+                    <td class="py-2 px-4 border border-gray-300"></td>
+                    <td class="py-2 px-4 border border-gray-300" id="totalBlnk"></td>
+                    <td class="py-2 px-4 border border-gray-300"></td>
+                    <td class="py-2 px-4 border border-gray-300"></td>
+                    <td class="py-2 px-4 border border-gray-300"></td>
+                    <td class="py-2 px-4 border border-gray-300"></td>
+                    <td class="py-2 px-4 border border-gray-300"></td>
+                    <td class="py-2 px-4 border border-gray-300" id="totalBlns"></td>
+                    <td class="py-2 px-4 border border-gray-300" id="totalKurang"></td>
+                    <td class="py-2 px-4 border border-gray-300" id="totalBayar"></td>
+                </tr>
+            </tfoot>
         </table>
     </div>
 
@@ -112,10 +127,14 @@
 
                 jsonData.slice(1).forEach(row => {
                     const tr = document.createElement('tr');
-                    row.forEach(cell => {
+                    row.forEach((cell, index) => {
                         const td = document.createElement('td');
-                        td.className = 'py-2 px-4 border-b';
-                        td.textContent = cell;
+                        td.className = 'py-2 px-4 border border-gray-300';
+                        if (index === 2 || index === 8 || index === 9 || index === 10) {
+                            td.textContent = formatCurrency(cell);
+                        } else {
+                            td.textContent = cell;
+                        }
                         tr.appendChild(td);
                     });
                     tableBody.appendChild(tr);
@@ -126,6 +145,7 @@
                 });
 
                 saveTableToLocalStorage();
+                updateTotals();
             };
 
             reader.readAsArrayBuffer(file);
@@ -171,6 +191,12 @@
         document.getElementById('saveBtn').addEventListener('click', function() {
             const nama = document.getElementById('nama').value;
             const blok = document.getElementById('blok').value;
+
+            if (!nama || !blok) {
+                alert('Nama dan Blok wajib diisi.');
+                return;
+            }
+
             const blnK = document.getElementById('blnK').value;
             const m1 = document.getElementById('m1').checked ? document.getElementById('m1').value : 0;
             const m2 = document.getElementById('m2').checked ? document.getElementById('m2').value : 0;
@@ -187,30 +213,35 @@
             rows.forEach(row => {
                 if (row.cells[0].textContent === nama && row.cells[1].textContent === blok) {
                     rowExists = true;
-                    row.cells[2].textContent = blnK;
-                    row.cells[3].textContent = m1;
-                    row.cells[4].textContent = m2;
-                    row.cells[5].textContent = m3;
-                    row.cells[6].textContent = m4;
-                    row.cells[7].textContent = bln;
-                    row.cells[8].textContent = blnS;
-                    row.cells[9].textContent = kurang;
-                    row.cells[10].textContent = bayar;
+                    row.cells[2].textContent = formatCurrency(blnK);
+                    row.cells[3].textContent = formatCurrency(m1);
+                    row.cells[4].textContent = formatCurrency(m2);
+                    row.cells[5].textContent = formatCurrency(m3);
+                    row.cells[6].textContent = formatCurrency(m4);
+                    row.cells[7].textContent = formatCurrency(bln);
+                    row.cells[8].textContent = formatCurrency(blnS);
+                    row.cells[9].textContent = formatCurrency(kurang);
+                    row.cells[10].textContent = formatCurrency(bayar);
                 }
             });
 
             if (!rowExists) {
                 const tr = document.createElement('tr');
-                [nama, blok, blnK, m1, m2, m3, m4, bln, blnS, kurang, bayar].forEach(cellValue => {
+                [nama, blok, blnK, m1, m2, m3, m4, bln, blnS, kurang, bayar].forEach((cellValue, index) => {
                     const td = document.createElement('td');
-                    td.className = 'py-2 px-4 border-b';
-                    td.textContent = cellValue;
+                    td.className = 'py-2 px-4 border border-gray-300';
+                    if (index === 2 || index === 8 || index === 9 || index === 10) {
+                        td.textContent = formatCurrency(cellValue);
+                    } else {
+                        td.textContent = cellValue;
+                    }
                     tr.appendChild(td);
                 });
                 document.getElementById('tableBody').appendChild(tr);
             }
 
             saveTableToLocalStorage();
+            updateTotals();
         });
 
         document.getElementById('downloadBtn').addEventListener('click', function() {
@@ -230,6 +261,7 @@
         document.getElementById('deleteBtn').addEventListener('click', function() {
             document.getElementById('tableBody').innerHTML = '';
             localStorage.removeItem('tableData');
+            updateTotals();
         });
 
         function saveTableToLocalStorage() {
@@ -256,15 +288,45 @@
 
                 tableData.forEach(rowData => {
                     const tr = document.createElement('tr');
-                    rowData.forEach(cellValue => {
+                    rowData.forEach((cellValue, index) => {
                         const td = document.createElement('td');
-                        td.className = 'py-2 px-4 border-b';
-                        td.textContent = cellValue;
+                        td.className = 'py-2 px-4 border border-gray-300';
+                        if (index === 2 || index === 8 || index === 9 || index === 10) {
+                            td.textContent = formatCurrency(cellValue);
+                        } else {
+                            td.textContent = cellValue;
+                        }
                         tr.appendChild(td);
                     });
                     tableBody.appendChild(tr);
                 });
             }
+            updateTotals();
+        }
+
+        function updateTotals() {
+            const rows = document.querySelectorAll('#dataTable tbody tr');
+            let totalKurang = 0;
+            let totalBayar = 0;
+            let totalBlnk = 0;
+            let totalBlns = 0;
+
+            rows.forEach(row => {
+                totalKurang += parseInt(row.cells[9].textContent.replace(/[^0-9]/g, '')) || 0;
+                totalBayar += parseInt(row.cells[10].textContent.replace(/[^0-9]/g, '')) || 0;
+                totalBlnk += parseInt(row.cells[2].textContent.replace(/[^0-9]/g, '')) || 0;
+                totalBlns += parseInt(row.cells[8].textContent.replace(/[^0-9]/g, '')) || 0;
+            });
+
+            document.getElementById('totalKurang').textContent = formatCurrency(totalKurang);
+            document.getElementById('totalBayar').textContent = formatCurrency(totalBayar);
+            document.getElementById('totalBlnk').textContent = formatCurrency(totalBlnk);
+            document.getElementById('totalBlns').textContent = formatCurrency(totalBlns);
+        }
+
+        function formatCurrency(value) {
+            if (isNaN(value)) return value;
+            return 'Rp' + parseInt(value).toLocaleString('id-ID');
         }
 
         document.addEventListener('DOMContentLoaded', loadTableFromLocalStorage);
