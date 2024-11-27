@@ -68,9 +68,11 @@ padding-right:20px;
 <body class="bg-gray-100 p-6">
     <div class="container mx-auto">
 <div id="dataForm">
-        <h1 class="text-2xl font-bold mb-4">Import and Display Table</h1>
-        <div class="mb-4">
-            <input type="file" id="fileInput" class="mb-4 p-2 border border-gray-300 rounded" /> <a href="denda-ronda.xlsx" download>Download FIle Contoh</a>
+  
+        <h1 class="text-2xl font-bold mb-4">Import and Display Table</h1> 
+        <div class="mb-4 bg-green-200 p-3  border border-gray-300 rounded w-full">
+<input type="file" id="fileInput" class="mb-4 p-4 border-gray-300 rounded" />         
+          <button id="downloadBtn" class="mb-4 p-2 bg-green-500 text-white rounded"><i class="fas fa-download"></i> <a href="denda-ronda.xlsx">Download File Contoh</a></button>
         </div>
         <div class="grid grid-cols-2 gap-4 mb-4">
             <div>
@@ -141,7 +143,6 @@ padding-right:20px;
         <div class="dataTable">
         <table id="dataTable" class="min-w-full bg-white border border-gray-300 rounded border-collapse">
             <thead class="bg-blue-500 text-white">
-              <tr class="bg-white border-white-0 text-left text-black"><th colspan="11">  Denda Ronda <span id="printDate"></span></th></td>
                 <tr>
                     <th class="py-2 px-4 border border-gray-300">Nama</th>
                     <th class="py-2 px-4 border border-gray-300">Blok</th>
@@ -219,8 +220,6 @@ padding-right:20px;
             };
 
             reader.readAsArrayBuffer(file);
-                          showNotification('Data berhasil di import');
-                return;
         });
 
         document.getElementById('nama').addEventListener('input', function() {
@@ -253,8 +252,6 @@ padding-right:20px;
 
         document.querySelectorAll('#m1, #m2, #m3, #m4, #bln').forEach(checkbox => {
             checkbox.addEventListener('change', function() {
-          
-                return;
                 calculateSekarang();
                 calculateKekurangan();
             });
@@ -320,8 +317,8 @@ padding-right:20px;
 
         document.getElementById('downloadBtn').addEventListener('click', function() {
             const table = document.getElementById('dataTable');
-            const wb = XLSX.utils.table_to_book(table, { sheet: "2025" });
-            XLSX.writeFile(wb, 'Denda-Ronda.xlsx');
+            const wb = XLSX.utils.table_to_book(table, { sheet: "Sheet1" });
+            XLSX.writeFile(wb, 'table_data.xlsx');
         });
 
         document.getElementById('printBtn').addEventListener('click', function() {
@@ -330,8 +327,6 @@ padding-right:20px;
             document.body.innerHTML = printContent;
             window.print();
             document.body.innerHTML = originalContent;
-                          showNotification('Proses cetak sudah selesai');
-                return;
         });
 
         document.getElementById('deleteBtn').addEventListener('click', function() {
@@ -425,8 +420,6 @@ padding-right:20px;
             document.getElementById('tableBody').innerHTML = '';
             localStorage.removeItem('tableData');
             updateTotals();
-                showNotification('Berhasil menghapus semua isi data tabel');
-                return;
         });
 
         document.getElementById('deleteByNameBtn').addEventListener('click', function() {
@@ -440,18 +433,11 @@ padding-right:20px;
             rows.forEach(row => {
                 if (row.cells[0].textContent === nama) {
                     row.remove();
-                  showNotification(`${nama} berhasil dihapus`);
-                return;
                 }
             });
 
             saveTableToLocalStorage();
             updateTotals();
-        });
-         document.addEventListener('DOMContentLoaded', (event) => {
-            const printDateElement = document.getElementById('printDate');
-            const currentDate = new Date();
-            printDateElement.textContent = currentDate.toLocaleDateString();
         });
     </script>
 </body>
