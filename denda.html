@@ -10,6 +10,15 @@ page-break-inside: avoid;
 break-inside: avoid;
 padding-right:20px;
 }
+@media only screen and (max-width: 600px) {
+  body {
+    background-color: lightblue;
+  }
+.container {
+max-width:500px;
+overflow:hidden;
+}
+}
         @media print {
             @page {
                 size: A4;
