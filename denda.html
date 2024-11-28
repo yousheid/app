@@ -281,6 +281,10 @@ overflow:hidden;
                 showNotification('Nama dan Blok wajib diisi.');
                 return;
             }
+            if (nama.toLowerCase() === 'total') {
+                showNotification('Nama tidak boleh mengandung kata "Total".');
+                return;
+            }
 
             const blnK = document.getElementById('blnK').value;
             const m1 = document.getElementById('m1').checked ? document.getElementById('m1').value : 0;
