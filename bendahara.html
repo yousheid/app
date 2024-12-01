@@ -1,0 +1,303 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arisan Management App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-roboto">
+    <div class="container mx-auto p-4">
+        <h1 class="text-2xl font-bold mb-4">Arisan Management App</h1>
+        <div class="bg-white p-4 rounded shadow-md mb-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="blok" class="block text-sm font-medium text-gray-700">Blok</label>
+                    <select id="blok" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option value="Pilih">Pilih</option>
+                        <option value="A2">A2</option>
+                        <option value="A3">A3</option>
+                        <option value="A4">A4</option>
+                        <option value="A4B">A4B</option>
+                        <option value="A6">A6</option>
+                        <option value="A7">A7</option>
+                        <option value="A8">A8</option>
+                        <option value="A9">A9</option>
+                        <option value="A10">A10</option>
+                        <option value="A11">A11</option>
+                        <option value="A12">A12</option>
+                        <option value="A13">A13</option>
+                        <option value="B1">B1</option>
+                        <option value="B3">B3</option>
+                        <option value="B4">B4</option>
+                        <option value="B5">B5</option>
+                        <option value="B7">B7</option>
+                        <option value="B8">B8</option>
+                        <option value="B9">B9</option>
+                        <option value="B10">B10</option>
+                        <option value="B11">B11</option>
+                        <option value="B12">B12</option>
+                        <option value="B13">B13</option>
+                        <option value="C2">C2</option>
+                        <option value="C3">C3</option>
+                        <option value="C4">C4</option>
+                        <option value="C6">C6</option>
+                        <option value="C7">C7</option>
+                        <option value="C9">C9</option>
+                        <option value="C12">C12</option>
+                        <option value="C14">C14</option>
+                        <option value="RA1">RA1</option>
+                        <option value="RB2">RB2</option>
+                        <option value="RC1">RC1</option>
+                        <option value="KAV">KAV</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="nama" class="block text-sm font-medium text-gray-700">Nama</label>
+                    <select id="nama" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option value="Pilih">Pilih</option>
+                        <option value="Eko">Eko</option>
+                        <option value="A3">A3</option>
+                        <option value="Widya">Widya</option>
+                        <option value="Eko Santosa">Eko Santosa</option>
+                        <option value="Woko">Woko</option>
+                        <option value="Arif Fajar S">Arif Fajar S</option>
+                        <option value="Didik">Didik</option>
+                        <option value="Ariyanto">Ariyanto</option>
+                        <option value="R Agung P">R Agung P</option>
+                        <option value="Bayu Adi S">Bayu Adi S</option>
+                        <option value="Hari">Hari</option>
+                        <option value="M Syafudin">M Syafudin</option>
+                        <option value="Nasya">Nasya</option>
+                        <option value="Roni S">Roni S</option>
+                        <option value="Bondan">Bondan</option>
+                        <option value="Zulham">Zulham</option>
+                        <option value="M Dicky">M Dicky</option>
+                        <option value="Bu Ning">Bu Ning</option>
+                        <option value="Thomas">Thomas</option>
+                        <option value="Eko Hartanto">Eko Hartanto</option>
+                        <option value="Susianto">Susianto</option>
+                        <option value="Bambang W">Bambang W</option>
+                        <option value="Akbar">Akbar</option>
+                        <option value="Tika M">Tika M</option>
+                        <option value="Danang S/Ciptono">Danang S/Ciptono</option>
+                        <option value="Ardi">Ardi</option>
+                        <option value="Candra/Niki">Candra/Niki</option>
+                        <option value="Budi Setiawan">Budi Setiawan</option>
+                        <option value="Tuhu W">Tuhu W</option>
+                        <option value="Iswadi">Iswadi</option>
+                        <option value="Sudarsana">Sudarsana</option>
+                        <option value="Wahyudi">Wahyudi</option>
+                        <option value="Medi">Medi</option>
+                        <option value="Cahaya">Cahaya</option>
+                        <option value="Agus Gunawan">Agus Gunawan</option>
+                        <option value="M Rodhi">M Rodhi</option>
+                        <option value="Yuyun">Yuyun</option>
+                        <option value="Renaldi">Renaldi</option>
+                        <option value="Wisnu">Wisnu</option>
+                        <option value="Heru Kav">Heru Kav</option>
+                        <option value="Candra Kav">Candra Kav</option>
+                        <option value="Wahyu Kav">Wahyu Kav</option>
+                        <option value="Sandra Kav">Sandra Kav</option>
+                        <option value="Bagas Kav">Bagas Kav</option>
+                        <option value="Amin Kav">Amin Kav</option>
+                    </select>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div>
+                    <label for="ar" class="block text-sm font-medium text-gray-700">Arisan</label>
+                    <div class="flex items-center mt-1">
+                        <input type="checkbox" id="ar" class="mr-2">
+                        <input type="number" id="ar_value" class="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="0">
+                    </div>
+                </div>
+                <div>
+                    <label for="kon" class="block text-sm font-medium text-gray-700">Konsumsi</label>
+                    <div class="flex items-center mt-1">
+                        <input type="checkbox" id="kon" class="mr-2">
+                        <input type="number" id="kon_value" class="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="0">
+                    </div>
+                </div>
+                <div>
+                    <label for="sam" class="block text-sm font-medium text-gray-700">Sampah</label>
+                    <div class="flex items-center mt-1">
+                        <input type="checkbox" id="sam" class="mr-2">
+                        <input type="number" id="sam_value" class="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="0">
+                    </div>
+                </div>
+                <div>
+                    <label for="kas" class="block text-sm font-medium text-gray-700">Kas</label>
+                    <div class="flex items-center mt-1">
+                        <input type="checkbox" id="kas" class="mr-2">
+                        <input type="number" id="kas_value" class="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="0">
+                    </div>
+                </div>
+                <div>
+                    <label for="bayar" class="block text-sm font-medium text-gray-700">Bayar</label>
+                    <input type="number" id="bayar" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="0">
+                </div>
+                <div>
+                    <label for="total" class="block text-sm font-medium text-gray-700">Total</label>
+                    <input type="number" id="total" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="0" readonly>
+                </div>
+            </div>
+            <div class="flex justify-end mt-4">
+                <button id="save" class="bg-blue-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-600">Simpan</button>
+                <button id="export" class="bg-green-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-green-600 ml-2">Export ke *.xlsx</button>
+                <button id="print" class="bg-yellow-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-yellow-600 ml-2">Print</button>
+                <button id="delete_user" class="bg-red-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-red-600 ml-2">Delete User</button>
+                <button id="delete_all" class="bg-red-700 text-white px-4 py-2 rounded-md shadow-md hover:bg-red-800 ml-2">Delete All</button>
+            </div>
+        </div>
+        <div class="bg-white p-4 rounded shadow-md">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Blok</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Arisan</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Konsumsi</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sampah</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kas</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bayar</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body" class="bg-white divide-y divide-gray-200">
+                    <!-- Rows will be added here dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const blokSelect = document.getElementById('blok');
+            const namaSelect = document.getElementById('nama');
+            const arCheckbox = document.getElementById('ar');
+            const arValue = document.getElementById('ar_value');
+            const konCheckbox = document.getElementById('kon');
+            const konValue = document.getElementById('kon_value');
+            const samCheckbox = document.getElementById('sam');
+            const samValue = document.getElementById('sam_value');
+            const kasCheckbox = document.getElementById('kas');
+            const kasValue = document.getElementById('kas_value');
+            const bayarInput = document.getElementById('bayar');
+            const totalInput = document.getElementById('total');
+            const saveButton = document.getElementById('save');
+            const exportButton = document.getElementById('export');
+            const printButton = document.getElementById('print');
+            const deleteUserButton = document.getElementById('delete_user');
+            const deleteAllButton = document.getElementById('delete_all');
+            const tableBody = document.getElementById('table-body');
+
+            const namaOptions = [
+                "Eko", "A3", "Widya", "Eko Santosa", "Woko", "Arif Fajar S", "Didik", "Ariyanto", "R Agung P", "Bayu Adi S", "Hari", "M Syafudin", "Nasya", "Roni S", "Bondan", "Zulham", "M Dicky", "Bu Ning", "Thomas", "Eko Hartanto", "Susianto", "Bambang W", "Akbar", "Tika M", "Danang S/Ciptono", "Ardi", "Candra/Niki", "Budi Setiawan", "Tuhu W", "Iswadi", "Sudarsana", "Wahyudi", "Medi", "Cahaya", "Agus Gunawan", "M Rodhi", "Yuyun", "Renaldi", "Wisnu", "Heru Kav", "Candra Kav", "Wahyu Kav", "Sandra Kav", "Bagas Kav", "Amin Kav"
+            ];
+
+            blokSelect.addEventListener('change', function () {
+                const index = blokSelect.selectedIndex - 1;
+                if (index >= 0 && index < namaOptions.length) {
+                    namaSelect.selectedIndex = index + 1;
+                } else {
+                    namaSelect.selectedIndex = 0;
+                }
+            });
+
+            function calculateTotal() {
+                const ar = arCheckbox.checked ? 5000 + parseInt(arValue.value) : 0;
+                const kon = konCheckbox.checked ? 5000 + parseInt(konValue.value) : 0;
+                const sam = samCheckbox.checked ? 18000 + parseInt(samValue.value) : 0;
+                const kas = kasCheckbox.checked ? 2000 + parseInt(kasValue.value) : 0;
+                const bayar = parseInt(bayarInput.value);
+                const total = ar + kon + sam + kas - bayar;
+                totalInput.value = total;
+            }
+
+            arCheckbox.addEventListener('change', calculateTotal);
+            arValue.addEventListener('input', calculateTotal);
+            konCheckbox.addEventListener('change', calculateTotal);
+            konValue.addEventListener('input', calculateTotal);
+            samCheckbox.addEventListener('change', calculateTotal);
+            samValue.addEventListener('input', calculateTotal);
+            kasCheckbox.addEventListener('change', calculateTotal);
+            kasValue.addEventListener('input', calculateTotal);
+            bayarInput.addEventListener('input', calculateTotal);
+
+            saveButton.addEventListener('click', function () {
+                const arResult = arCheckbox.checked ? 5000 + parseInt(arValue.value) : 0;
+                const konResult = konCheckbox.checked ? 5000 + parseInt(konValue.value) : 0;
+                const samResult = samCheckbox.checked ? 18000 + parseInt(samValue.value) : 0;
+                const kasResult = kasCheckbox.checked ? 2000 + parseInt(kasValue.value) : 0;
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap">${blokSelect.value}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${namaSelect.value}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${arResult}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${konResult}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${samResult}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${kasResult}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${bayarInput.value}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${totalInput.value}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            exportButton.addEventListener('click', function () {
+                // Export to XLSX logic here
+            });
+
+            printButton.addEventListener('click', function () {
+                window.print();
+            });
+
+            deleteUserButton.addEventListener('click', function () {
+                const namaToDelete = prompt("Enter the name to delete:");
+                if (namaToDelete) {
+                    const rows = tableBody.querySelectorAll('tr');
+                    rows.forEach(row => {
+                        if (row.children[1].textContent === namaToDelete) {
+                            tableBody.removeChild(row);
+                        }
+                    });
+                }
+            });
+
+            deleteAllButton.addEventListener('click', function () {
+                tableBody.innerHTML = '';
+            });
+
+ tableBody.addEventListener('mouseover', function (event) {
+                const row = event.target.closest('tr');
+                if (row) {
+                    blokSelect.value = row.children[0].textContent;
+                    namaSelect.value = row.children[1].textContent;
+                    arValue.value = row.children[2].textContent;
+                    konValue.value = row.children[3].textContent;
+                    samValue.value = row.children[4].textContent;
+                    kasValue.value = row.children[5].textContent;
+                    bayarInput.value = row.children[6].textContent;
+                    totalInput.value = row.children[7].textContent;
+                }
+});
+
+            tableBody.addEventListener('click', function (event) {
+                const row = event.target.closest('tr');
+                if (row) {
+                    blokSelect.value = row.children[0].textContent;
+                    namaSelect.value = row.children[1].textContent;
+                    arValue.value = row.children[2].textContent;
+                    konValue.value = row.children[3].textContent;
+                    samValue.value = row.children[4].textContent;
+                    kasValue.value = row.children[5].textContent;
+                    bayarInput.value = row.children[6].textContent;
+                    totalInput.value = row.children[7].textContent;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
