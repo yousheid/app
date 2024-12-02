@@ -14,144 +14,58 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <label for="blok" class="block text-sm font-medium text-gray-700">Blok</label>
-                    <select id="blok" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                        <option value="Pilih">Pilih</option>
-                        <option value="A2">A2</option>
-                        <option value="A3">A3</option>
-                        <option value="A4">A4</option>
-                        <option value="A4B">A4B</option>
-                        <option value="A6">A6</option>
-                        <option value="A7">A7</option>
-                        <option value="A8">A8</option>
-                        <option value="A9">A9</option>
-                        <option value="A10">A10</option>
-                        <option value="A11">A11</option>
-                        <option value="A12">A12</option>
-                        <option value="A13">A13</option>
-                        <option value="B1">B1</option>
-                        <option value="B3">B3</option>
-                        <option value="B4">B4</option>
-                        <option value="B5">B5</option>
-                        <option value="B7">B7</option>
-                        <option value="B8">B8</option>
-                        <option value="B9">B9</option>
-                        <option value="B10">B10</option>
-                        <option value="B11">B11</option>
-                        <option value="B12">B12</option>
-                        <option value="B13">B13</option>
-                        <option value="C2">C2</option>
-                        <option value="C3">C3</option>
-                        <option value="C4">C4</option>
-                        <option value="C6">C6</option>
-                        <option value="C7">C7</option>
-                        <option value="C9">C9</option>
-                        <option value="C12">C12</option>
-                        <option value="C14">C14</option>
-                        <option value="RA1">RA1</option>
-                        <option value="RB2">RB2</option>
-                        <option value="RC1">RC1</option>
-                        <option value="KAV">KAV</option>
-                    </select>
+                    <input type="text" id="blok" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
                 </div>
                 <div>
                     <label for="nama" class="block text-sm font-medium text-gray-700">Nama</label>
-                    <select id="nama" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                        <option value="Pilih">Pilih</option>
-                        <option value="Eko">Eko</option>
-                        <option value="A3">A3</option>
-                        <option value="Widya">Widya</option>
-                        <option value="Eko Santosa">Eko Santosa</option>
-                        <option value="Woko">Woko</option>
-                        <option value="Arif Fajar S">Arif Fajar S</option>
-                        <option value="Didik">Didik</option>
-                        <option value="Ariyanto">Ariyanto</option>
-                        <option value="R Agung P">R Agung P</option>
-                        <option value="Bayu Adi S">Bayu Adi S</option>
-                        <option value="Hari">Hari</option>
-                        <option value="M Syafudin">M Syafudin</option>
-                        <option value="Nasya">Nasya</option>
-                        <option value="Roni S">Roni S</option>
-                        <option value="Bondan">Bondan</option>
-                        <option value="Zulham">Zulham</option>
-                        <option value="M Dicky">M Dicky</option>
-                        <option value="Bu Ning">Bu Ning</option>
-                        <option value="Thomas">Thomas</option>
-                        <option value="Eko Hartanto">Eko Hartanto</option>
-                        <option value="Susianto">Susianto</option>
-                        <option value="Bambang W">Bambang W</option>
-                        <option value="Akbar">Akbar</option>
-                        <option value="Tika M">Tika M</option>
-                        <option value="Danang S/Ciptono">Danang S/Ciptono</option>
-                        <option value="Ardi">Ardi</option>
-                        <option value="Candra/Niki">Candra/Niki</option>
-                        <option value="Budi Setiawan">Budi Setiawan</option>
-                        <option value="Tuhu W">Tuhu W</option>
-                        <option value="Iswadi">Iswadi</option>
-                        <option value="Sudarsana">Sudarsana</option>
-                        <option value="Wahyudi">Wahyudi</option>
-                        <option value="Medi">Medi</option>
-                        <option value="Cahaya">Cahaya</option>
-                        <option value="Agus Gunawan">Agus Gunawan</option>
-                        <option value="M Rodhi">M Rodhi</option>
-                        <option value="Yuyun">Yuyun</option>
-                        <option value="Renaldi">Renaldi</option>
-                        <option value="Wisnu">Wisnu</option>
-                        <option value="Heru Kav">Heru Kav</option>
-                        <option value="Candra Kav">Candra Kav</option>
-                        <option value="Wahyu Kav">Wahyu Kav</option>
-                        <option value="Sandra Kav">Sandra Kav</option>
-                        <option value="Bagas Kav">Bagas Kav</option>
-                        <option value="Amin Kav">Amin Kav</option>
-                    </select>
+                    <input type="text" id="nama" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">
                 </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                 <div>
                     <label for="ar" class="block text-sm font-medium text-gray-700">Arisan</label>
                     <div class="flex items-center mt-1">
                         <input type="checkbox" id="ar" class="mr-2">
-                        <input type="number" id="ar_value" class="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="0">
+                        <input type="number" id="ar_input" class="block w-full border border-gray-300 rounded-md shadow-sm p-2" value="0">
                     </div>
                 </div>
                 <div>
                     <label for="kon" class="block text-sm font-medium text-gray-700">Konsumsi</label>
                     <div class="flex items-center mt-1">
                         <input type="checkbox" id="kon" class="mr-2">
-                        <input type="number" id="kon_value" class="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="0">
+                        <input type="number" id="kon_input" class="block w-full border border-gray-300 rounded-md shadow-sm p-2" value="0">
                     </div>
                 </div>
                 <div>
                     <label for="sam" class="block text-sm font-medium text-gray-700">Sampah</label>
                     <div class="flex items-center mt-1">
                         <input type="checkbox" id="sam" class="mr-2">
-                        <input type="number" id="sam_value" class="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="0">
+                        <input type="number" id="sam_input" class="block w-full border border-gray-300 rounded-md shadow-sm p-2" value="0">
                     </div>
                 </div>
                 <div>
                     <label for="kas" class="block text-sm font-medium text-gray-700">Kas</label>
                     <div class="flex items-center mt-1">
                         <input type="checkbox" id="kas" class="mr-2">
-                        <input type="number" id="kas_value" class="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="0">
+                        <input type="number" id="kas_input" class="block w-full border border-gray-300 rounded-md shadow-sm p-2" value="0">
                     </div>
                 </div>
                 <div>
                     <label for="bayar" class="block text-sm font-medium text-gray-700">Bayar</label>
-                    <input type="number" id="bayar" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="0">
+                    <input type="number" id="bayar" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" value="0">
                 </div>
                 <div>
                     <label for="total" class="block text-sm font-medium text-gray-700">Total</label>
-                    <input type="number" id="total" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="0" readonly>
+                    <input type="number" id="total" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" value="0" readonly>
                 </div>
             </div>
-            <div class="flex justify-end mt-4">
-                <button id="save" class="bg-blue-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-600">Simpan</button>
-                <button id="export" class="bg-green-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-green-600 ml-2">Export ke *.xlsx</button>
-                <button id="print" class="bg-yellow-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-yellow-600 ml-2">Print</button>
-                <button id="delete_user" class="bg-red-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-red-600 ml-2">Delete User</button>
-                <button id="delete_all" class="bg-red-700 text-white px-4 py-2 rounded-md shadow-md hover:bg-red-800 ml-2">Delete All</button>
+            <div class="mt-4 flex space-x-2">
+                <button id="save" class="bg-blue-500 text-white px-4 py-2 rounded shadow">Simpan</button>
+                <button id="export" class="bg-green-500 text-white px-4 py-2 rounded shadow">Export ke *.xlsx</button>
+                <button id="print" class="bg-yellow-500 text-white px-4 py-2 rounded shadow">Print</button>
+                <button id="delete_user" class="bg-red-500 text-white px-4 py-2 rounded shadow">Delete User</button>
+                <button id="delete_all" class="bg-red-700 text-white px-4 py-2 rounded shadow">Delete All</button>
             </div>
         </div>
-        <div class="bg-white p-4 rounded shadow-md">
+        <div class="bg-white p-4 rounded shadow-md mb-4">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
@@ -165,25 +79,84 @@
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
                     </tr>
                 </thead>
-                <tbody id="table-body" class="bg-white divide-y divide-gray-200">
+                <tbody id="table_body" class="bg-white divide-y divide-gray-200">
                     <!-- Rows will be added here dynamically -->
                 </tbody>
             </table>
         </div>
+        <div class="bg-white p-4 rounded shadow-md">
+            <h2 class="text-xl font-bold mb-4">Rincian Pemasukan</h2>
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jenis Iuran</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pemasukan</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pengeluaran</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Saldo</th>
+                    </tr>
+                </thead>
+                <tbody id="rincian_body" class="bg-white divide-y divide-gray-200">
+                    <tr>
+                        <td class="px-2 py-2 whitespace-nowrap">1</td>
+                        <td class="px-2 py-2 whitespace-nowrap">Arisan</td>
+                        <td class="px-2 py-2 whitespace-nowrap"><input type="number" class="pemasukan_input block w-full p-2" value="0" readonly></td>
+                        <td class="px-2 py-2 whitespace-nowrap"><input type="number" class="pengeluaran_input block w-full p-2" value="0"></td>
+                        <td class="px-2 py-2 whitespace-nowrap"><input type="number" class="saldo_input block w-full p-2" value="0" readonly></td>
+                    </tr>
+                    <tr>
+                        <td class="px-2 py-2 whitespace-nowrap">2</td>
+                        <td class="px-2 py-2 whitespace-nowrap">Konsumsi</td>
+                        <td class="px-2 py-2 whitespace-nowrap"><input type="number" class="pemasukan_input block w-full p-2" value="0" readonly></td>
+                        <td class="px-2 py-2 whitespace-nowrap"><input type="number" class="pengeluaran_input block w-full p-2" value="0"></td>
+                        <td class="px-2 py-2 whitespace-nowrap"><input type="number" class="saldo_input block w-full p-2" value="0" readonly></td>
+                    </tr>
+                    <tr>
+                        <td class="px-2 py-2 whitespace-nowrap">3</td>
+                        <td class="px-2 py-2 whitespace-nowrap">Sampah</td>
+                        <td class="px-2 py-2 whitespace-nowrap"><input type="number" class="pemasukan_input block w-full p-2" value="0" readonly></td>
+                        <td class="px-2 py-2 whitespace-nowrap"><input type="number" class="pengeluaran_input block w-full p-2" value="0"></td>
+                        <td class="px-2 py-2 whitespace-nowrap"><input type="number" class="saldo_input block w-full p-2" value="0" readonly></td>
+                    </tr>
+                    <tr>
+                        <td class="px-2 py-2 whitespace-nowrap">4</td>
+                        <td class="px-2 py-2 whitespace-nowrap">Kas</td>
+                        <td class="px-2 py-2 whitespace-nowrap"><input type="number" class="pemasukan_input block w-full p-2" value="0" readonly></td>
+                        <td class="px-2 py-2 whitespace-nowrap"><input type="number" class="pengeluaran_input block w-full p-2" value="0"></td>
+                        <td class="px-2 py-2 whitespace-nowrap"><input type="number" class="saldo_input block w-full p-2" value="0" readonly></td>
+                    </tr>
+                    <tr>
+                        <td class="px-2 py-2 whitespace-nowrap">5</td>
+                        <td class="px-2 py-2 whitespace-nowrap">Selokan</td>
+                        <td class="px-2 py-2 whitespace-nowrap"><input type="number" class="pemasukan_input block w-full p-2" value="0" readonly></td>
+                        <td class="px-2 py-2 whitespace-nowrap"><input type="number" class="pengeluaran_input block w-full p-2" value="0"></td>
+                        <td class="px-2 py-2 whitespace-nowrap"><input type="number" class="saldo_input block w-full p-2" value="0" readonly></td>
+                    </tr>
+                    <tr>
+                        <td class="px-2 py-2 whitespace-nowrap font-bold">TOTAL</td>
+                        <td class="px-2 py-2 whitespace-nowrap"></td>
+                        <td class="px-2 py-2 whitespace-nowrap"><input type="number" id="total_pemasukan" class="block w-full rounded-md p-2" value="0" readonly></td>
+                        <td class="px-2 py-2 whitespace-nowrap"><input type="number" id="total_pengeluaran" class="block w-full rounded-md p-2" value="0" readonly></td>
+                        <td class="px-2 py-2 whitespace-nowrap"><input type="number" id="total_saldo" class="block w-full rounded-md p-2" value="0" readonly></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="mt-4 flex justify-end">
+                <button id="add_row" class="bg-blue-500 text-white px-4 py-2 rounded shadow"><i class="fas fa-plus"></i></button>
+            </div>
+        </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const blokSelect = document.getElementById('blok');
-            const namaSelect = document.getElementById('nama');
+        document.addEventListener('DOMContentLoaded', () => {
             const arCheckbox = document.getElementById('ar');
-            const arValue = document.getElementById('ar_value');
+            const arInput = document.getElementById('ar_input');
             const konCheckbox = document.getElementById('kon');
-            const konValue = document.getElementById('kon_value');
+            const konInput = document.getElementById('kon_input');
             const samCheckbox = document.getElementById('sam');
-            const samValue = document.getElementById('sam_value');
+            const samInput = document.getElementById('sam_input');
             const kasCheckbox = document.getElementById('kas');
-            const kasValue = document.getElementById('kas_value');
+            const kasInput = document.getElementById('kas_input');
             const bayarInput = document.getElementById('bayar');
             const totalInput = document.getElementById('total');
             const saveButton = document.getElementById('save');
@@ -191,113 +164,280 @@
             const printButton = document.getElementById('print');
             const deleteUserButton = document.getElementById('delete_user');
             const deleteAllButton = document.getElementById('delete_all');
-            const tableBody = document.getElementById('table-body');
+            const tableBody = document.getElementById('table_body');
+            const rincianBody = document.getElementById('rincian_body');
+            const addRowButton = document.getElementById('add_row');
 
-            const namaOptions = [
-                "Eko", "A3", "Widya", "Eko Santosa", "Woko", "Arif Fajar S", "Didik", "Ariyanto", "R Agung P", "Bayu Adi S", "Hari", "M Syafudin", "Nasya", "Roni S", "Bondan", "Zulham", "M Dicky", "Bu Ning", "Thomas", "Eko Hartanto", "Susianto", "Bambang W", "Akbar", "Tika M", "Danang S/Ciptono", "Ardi", "Candra/Niki", "Budi Setiawan", "Tuhu W", "Iswadi", "Sudarsana", "Wahyudi", "Medi", "Cahaya", "Agus Gunawan", "M Rodhi", "Yuyun", "Renaldi", "Wisnu", "Heru Kav", "Candra Kav", "Wahyu Kav", "Sandra Kav", "Bagas Kav", "Amin Kav"
-            ];
+            const updateTotal = () => {
+                const arValue = arCheckbox.checked ? 5000 + parseInt(arInput.value) : parseInt(arInput.value);
+                const konValue = konCheckbox.checked ? 5000 + parseInt(konInput.value) : parseInt(konInput.value);
+                const samValue = samCheckbox.checked ? 18000 + parseInt(samInput.value) : parseInt(samInput.value);
+                const kasValue = kasCheckbox.checked ? 2000 + parseInt(kasInput.value) : parseInt(kasInput.value);
+                const bayarValue = parseInt(bayarInput.value);
+                const totalValue = arValue + konValue + samValue + kasValue - bayarValue;
+                totalInput.value = totalValue;
+            };
 
-            blokSelect.addEventListener('change', function () {
-                const index = blokSelect.selectedIndex - 1;
-                if (index >= 0 && index < namaOptions.length) {
-                    namaSelect.selectedIndex = index + 1;
-                } else {
-                    namaSelect.selectedIndex = 0;
+            const updateRincian = () => {
+                let totalPemasukan = 0;
+                let totalPengeluaran = 0;
+                let totalSaldo = 0;
+
+                rincianBody.querySelectorAll('tr').forEach((row, index) => {
+                    if (index < rincianBody.querySelectorAll('tr').length - 1) {
+                        const pemasukanInput = row.querySelector('.pemasukan_input');
+                        const pengeluaranInput = row.querySelector('.pengeluaran_input');
+                        const saldoInput = row.querySelector('.saldo_input');
+
+                        const pemasukan = parseInt(pemasukanInput.value);
+                        const pengeluaran = parseInt(pengeluaranInput.value);
+                        const saldo = pemasukan - pengeluaran;
+
+                        saldoInput.value = saldo;
+
+                        totalPemasukan += pemasukan;
+                        totalPengeluaran += pengeluaran;
+                        totalSaldo += saldo;
+                    }
+                });
+
+                document.getElementById('total_pemasukan').value = totalPemasukan;
+                document.getElementById('total_pengeluaran').value = totalPengeluaran;
+                document.getElementById('total_saldo').value = totalSaldo;
+            };
+
+            arCheckbox.addEventListener('change', updateTotal);
+            konCheckbox.addEventListener('change', updateTotal);
+            samCheckbox.addEventListener('change', updateTotal);
+            kasCheckbox.addEventListener('change', updateTotal);
+            arInput.addEventListener('input', updateTotal);
+            konInput.addEventListener('input', updateTotal);
+            samInput.addEventListener('input', updateTotal);
+            kasInput.addEventListener('input', updateTotal);
+            bayarInput.addEventListener('input', updateTotal);
+
+            const saveDataToLocalStorage = () => {
+                const rows = [];
+                tableBody.querySelectorAll('tr').forEach(row => {
+                    const rowData = {
+                        blok: row.children[0].textContent,
+                        nama: row.children[1].textContent,
+                        arisan: row.children[2].textContent,
+                        konsumsi: row.children[3].textContent,
+                        sampah: row.children[4].textContent,
+                        kas: row.children[5].textContent,
+                        bayar: row.children[6].textContent,
+                        total: row.children[7].textContent
+                    };
+                    rows.push(rowData);
+                });
+                localStorage.setItem('arisanData', JSON.stringify(rows));
+            };
+
+            const loadDataFromLocalStorage = () => {
+                const rows = JSON.parse(localStorage.getItem('arisanData')) || [];
+                rows.forEach(rowData => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="px-2 py-2 whitespace-nowrap">${rowData.blok}</td>
+                        <td class="px-2 py-2 whitespace-nowrap">${rowData.nama}</td>
+                        <td class="px-2 py-2 whitespace-nowrap">${rowData.arisan}</td>
+                        <td class="px-2 py-2 whitespace-nowrap">${rowData.konsumsi}</td>
+                        <td class="px-2 py-2 whitespace-nowrap">${rowData.sampah}</td>
+                        <td class="px-2 py-2 whitespace-nowrap">${rowData.kas}</td>
+                        <td class="px-2 py-2 whitespace-nowrap">${rowData.bayar}</td>
+                        <td class="px-2 py-2 whitespace-nowrap">${rowData.total}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            };
+
+            saveButton.addEventListener('click', () => {
+                const blok = document.getElementById('blok').value;
+                const nama = document.getElementById('nama').value;
+
+                if (!blok || !nama) {
+                    alert('Blok dan Nama wajib diisi!');
+                    return;
                 }
+
+                const arValue = arCheckbox.checked ? 5000 + parseInt(arInput.value) : parseInt(arInput.value);
+                const konValue = konCheckbox.checked ? 5000 + parseInt(konInput.value) : parseInt(konInput.value);
+                const samValue = samCheckbox.checked ? 18000 + parseInt(samInput.value) : parseInt(samInput.value);
+                const kasValue = kasCheckbox.checked ? 2000 + parseInt(kasInput.value) : parseInt(kasInput.value);
+                const bayarValue = parseInt(bayarInput.value);
+                const totalValue = arValue + konValue +kasValue + samValue - bayarValue;
+
+                let isUpdate = false;
+                tableBody.querySelectorAll('tr').forEach(row => {
+                    if (row.children[0].textContent === blok && row.children[1].textContent === nama) {
+                        row.children[2].textContent = arValue;
+                        row.children[3].textContent = konValue;
+                        row.children[4].textContent = samValue;
+                        row.children[5].textContent = kasValue;
+                        row.children[6].textContent = bayarValue;
+                        row.children[7].textContent = totalValue;
+                        isUpdate = true;
+                    }
+                });
+
+                if (!isUpdate) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="px-2 py-2 whitespace-nowrap">${blok}</td>
+                        <td class="px-2 py-2 whitespace-nowrap">${nama}</td>
+                        <td class="px-2 py-2 whitespace-nowrap">${arValue}</td>
+                        <td class="px-2 py-2 whitespace-nowrap">${konValue}</td>
+                        <td class="px-2 py-2 whitespace-nowrap">${samValue}</td>
+                        <td class="px-2 py-2 whitespace-nowrap">${kasValue}</td>
+                        <td class="px-2 py-2 whitespace-nowrap">${bayarValue}</td>
+                        <td class="px-2 py-2 whitespace-nowrap">${totalValue}</td>
+                    `;
+                    tableBody.appendChild(row);
+                }
+
+                saveDataToLocalStorage();
+
+                // Update rincian pemasukan
+                rincianBody.querySelectorAll('tr').forEach((row, index) => {
+                    if (index < rincianBody.querySelectorAll('tr').length - 1) {
+                        const jenisIuran = row.children[1].textContent.toLowerCase();
+                        const pemasukanInput = row.querySelector('.pemasukan_input');
+                        if (jenisIuran === 'arisan') {
+                            pemasukanInput.value = parseInt(pemasukanInput.value) + arValue;
+                        } else if (jenisIuran === 'konsumsi') {
+                            pemasukanInput.value = parseInt(pemasukanInput.value) + konValue;
+                        } else if (jenisIuran === 'sampah') {
+                            pemasukanInput.value = parseInt(pemasukanInput.value) + samValue;
+                        } else if (jenisIuran === 'kas') {
+                            pemasukanInput.value = parseInt(pemasukanInput.value) + kasValue;
+                        }
+                    }
+                });
+
+                updateRincian();
             });
 
-            function calculateTotal() {
-                const ar = arCheckbox.checked ? 5000 + parseInt(arValue.value) : 0;
-                const kon = konCheckbox.checked ? 5000 + parseInt(konValue.value) : 0;
-                const sam = samCheckbox.checked ? 18000 + parseInt(samValue.value) : 0;
-                const kas = kasCheckbox.checked ? 2000 + parseInt(kasValue.value) : 0;
-                const bayar = parseInt(bayarInput.value);
-                const total = ar + kon + sam + kas - bayar;
-                totalInput.value = total;
-            }
-
-            arCheckbox.addEventListener('change', calculateTotal);
-            arValue.addEventListener('input', calculateTotal);
-            konCheckbox.addEventListener('change', calculateTotal);
-            konValue.addEventListener('input', calculateTotal);
-            samCheckbox.addEventListener('change', calculateTotal);
-            samValue.addEventListener('input', calculateTotal);
-            kasCheckbox.addEventListener('change', calculateTotal);
-            kasValue.addEventListener('input', calculateTotal);
-            bayarInput.addEventListener('input', calculateTotal);
-
-            saveButton.addEventListener('click', function () {
-                const arResult = arCheckbox.checked ? 5000 + parseInt(arValue.value) : 0;
-                const konResult = konCheckbox.checked ? 5000 + parseInt(konValue.value) : 0;
-                const samResult = samCheckbox.checked ? 18000 + parseInt(samValue.value) : 0;
-                const kasResult = kasCheckbox.checked ? 2000 + parseInt(kasValue.value) : 0;
-
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td class="px-6 py-4 whitespace-nowrap">${blokSelect.value}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">${namaSelect.value}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">${arResult}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">${konResult}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">${samResult}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">${kasResult}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">${bayarInput.value}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">${totalInput.value}</td>
-                `;
-                tableBody.appendChild(row);
+            exportButton.addEventListener('click', () => {
+                // Export to XLSX functionality
             });
 
-            exportButton.addEventListener('click', function () {
-                // Export to XLSX logic here
-            });
-
-            printButton.addEventListener('click', function () {
+            printButton.addEventListener('click', () => {
                 window.print();
             });
 
-            deleteUserButton.addEventListener('click', function () {
-                const namaToDelete = prompt("Enter the name to delete:");
-                if (namaToDelete) {
-                    const rows = tableBody.querySelectorAll('tr');
-                    rows.forEach(row => {
-                        if (row.children[1].textContent === namaToDelete) {
-                            tableBody.removeChild(row);
+            deleteUserButton.addEventListener('click', () => {
+                const nama = document.getElementById('nama').value;
+                const rows = tableBody.querySelectorAll('tr');
+                rows.forEach(row => {
+                    if (row.children[1].textContent === nama) {
+                        tableBody.removeChild(row);
+                    }
+                });
+
+                saveDataToLocalStorage();
+
+                // Update rincian pemasukan
+                rincianBody.querySelectorAll('tr').forEach((row, index) => {
+                    if (index < rincianBody.querySelectorAll('tr').length - 1) {
+                        const jenisIuran = row.children[1].textContent.toLowerCase();
+                        const pemasukanInput = row.querySelector('.pemasukan_input');
+                        if (jenisIuran === 'arisan') {
+                            pemasukanInput.value = 0;
+                        } else if (jenisIuran === 'konsumsi') {
+                            pemasukanInput.value = 0;
+                        } else if (jenisIuran === 'sampah') {
+                            pemasukanInput.value = 0;
+                        } else if (jenisIuran === 'kas') {
+                            pemasukanInput.value = 0;
+                        }
+                    }
+                });
+
+                tableBody.querySelectorAll('tr').forEach(row => {
+                    const arValue = parseInt(row.children[2].textContent);
+                    const konValue = parseInt(row.children[3].textContent);
+                    const samValue = parseInt(row.children[4].textContent);
+                    const kasValue = parseInt(row.children[5].textContent);
+
+                    rincianBody.querySelectorAll('tr').forEach((row, index) => {
+                        if (index < rincianBody.querySelectorAll('tr').length - 1) {
+                            const jenisIuran = row.children[1].textContent.toLowerCase();
+                            const pemasukanInput = row.querySelector('.pemasukan_input');
+                            if (jenisIuran === 'arisan') {
+                                pemasukanInput.value = parseInt(pemasukanInput.value) + arValue;
+                            } else if (jenisIuran === 'konsumsi') {
+                                pemasukanInput.value = parseInt(pemasukanInput.value) + konValue;
+                            } else if (jenisIuran === 'sampah') {
+                                pemasukanInput.value = parseInt(pemasukanInput.value) + samValue;
+                            } else if (jenisIuran === 'kas') {
+                                pemasukanInput.value = parseInt(pemasukanInput.value) + kasValue;
+                            }
                         }
                     });
-                }
+                });
+
+                updateRincian();
             });
 
-            deleteAllButton.addEventListener('click', function () {
+            deleteAllButton.addEventListener('click', () => {
                 tableBody.innerHTML = '';
+                localStorage.removeItem('arisanData');
+
+                // Reset rincian pemasukan
+                rincianBody.querySelectorAll('tr').forEach((row, index) => {
+                    if (index < rincianBody.querySelectorAll('tr').length - 1) {
+                        const pemasukanInput = row.querySelector('.pemasukan_input');
+                        const pengeluaranInput = row.querySelector('.pengeluaran_input');
+                        const saldoInput = row.querySelector('.saldo_input');
+
+                        pemasukanInput.value = 0;
+                        pengeluaranInput.value = 0;
+                        saldoInput.value = 0;
+                    }
+                });
+
+                updateRincian();
             });
 
- tableBody.addEventListener('mouseover', function (event) {
-                const row = event.target.closest('tr');
-                if (row) {
-                    blokSelect.value = row.children[0].textContent;
-                    namaSelect.value = row.children[1].textContent;
-                    arValue.value = row.children[2].textContent;
-                    konValue.value = row.children[3].textContent;
-                    samValue.value = row.children[4].textContent;
-                    kasValue.value = row.children[5].textContent;
-                    bayarInput.value = row.children[6].textContent;
-                    totalInput.value = row.children[7].textContent;
-                }
-});
-
-            tableBody.addEventListener('click', function (event) {
-                const row = event.target.closest('tr');
-                if (row) {
-                    blokSelect.value = row.children[0].textContent;
-                    namaSelect.value = row.children[1].textContent;
-                    arValue.value = row.children[2].textContent;
-                    konValue.value = row.children[3].textContent;
-                    samValue.value = row.children[4].textContent;
-                    kasValue.value = row.children[5].textContent;
-                    bayarInput.value = row.children[6].textContent;
-                    totalInput.value = row.children[7].textContent;
+            rincianBody.addEventListener('input', (event) => {
+                if (event.target.classList.contains('pengeluaran_input')) {
+                    updateRincian();
                 }
             });
+
+            addRowButton.addEventListener('click', () => {
+                const rowCount = rincianBody.querySelectorAll('tr').length;
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td class="px-2 py-2 whitespace-nowrap">${rowCount}</td>
+                    <td class="px-2 py-2 whitespace-nowrap"><input type="text" class="block w-full p-2" value=""></td>
+                    <td class="px-2 py-2 whitespace-nowrap"><input type="number" class="pemasukan_input block w-full p-2" value="0"></td>
+                    <td class="px-2 py-2 whitespace-nowrap"><input type="number" class="pengeluaran_input block w-full p-2" value="0"></td>
+                    <td class="px-2 py-2 whitespace-nowrap"><input type="number" class="saldo_input block w-full p-2" value="0" readonly></td>
+                `;
+                rincianBody.insertBefore(newRow, rincianBody.querySelector('tr:last-child'));
+
+                updateRincian();
+            });
+
+            tableBody.addEventListener('mouseover', (event) => {
+                const row = event.target.closest('tr');
+                if (row) {
+                    document.getElementById('blok').value = row.children[0].textContent;
+                    document.getElementById('nama').value = row.children[1].textContent;
+                    arInput.value = row.children[2].textContent;
+                    konInput.value = row.children[3].textContent;
+                    samInput.value = row.children[4].textContent;
+                    kasInput.value = row.children[5].textContent;
+                    bayarInput.value =row.children[6].textContent;
+                    totalInput.value =row.children[7].textContent;
+                }
+            });
+
+            loadDataFromLocalStorage();
         });
     </script>
+  
 </body>
 </html>
