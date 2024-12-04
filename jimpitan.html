@@ -1,0 +1,177 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Jimpitan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+</head>
+<body class="bg-gray-100 p-4">
+    <div class="container mx-auto">
+        <h1 class="text-2xl font-bold mb-4">Data Jimpitan</h1>
+        <div class="flex justify-between items-center mb-4">
+            <div>
+                <button id="importBtn" class="bg-blue-500 text-white px-4 py-2 rounded mr-2"><i class="fas fa-file-import"></i></button>
+                <button id="exportBtn" class="bg-green-500 text-white px-4 py-2 rounded mr-2"><i class="fas fa-file-export"></i></button>
+                <button id="printBtn" class="bg-yellow-500 text-white px-4 py-2 rounded mr-2"><i class="fas fa-print"></i></button>
+                <button id="deleteUserBtn" class="bg-red-500 text-white px-4 py-2 rounded mr-2"><i class="fas fa-user-minus"></i></button>
+                <button id="deleteAllBtn" class="bg-red-700 text-white px-4 py-2 rounded"><i class="fas fa-trash-alt"></i></button>
+            </div>
+        </div>
+        <div class="bg-white p-4 rounded shadow-md mb-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+                <div>
+                    <label for="nm" class="block text-sm font-medium text-gray-700">Nama</label>
+                    <input type="text" id="nm" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div>
+                    <label for="bl" class="block text-sm font-medium text-gray-700">Blok</label>
+                    <input type="text" id="bl" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+                <div>
+                    <label for="jim" class="block text-sm font-medium text-gray-700">Jimpitan</label>
+                    <div class="flex items-center mt-1">
+                        <input type="checkbox" id="jim" value="1000" class="mr-2">
+                        <input type="number" id="jimManual" value="0" class="block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                </div>
+                <div>
+                    <label for="by" class="block text-sm font-medium text-gray-700">Bayar</label>
+                    <input type="number" id="by" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+            </div>
+            <button id="saveBtn" class="bg-blue-500 text-white px-4 py-2 rounded">Simpan</button>
+        </div>
+        <div class="bg-white p-4 rounded shadow-md">
+            <table id="jimpitanTable" class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No.</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Blok</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Diperbarui</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jimpitan</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bayar</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kurang</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <!-- Rows will be dynamically added here -->
+                </tbody>
+                <tfoot class="bg-gray-50">
+                    <tr>
+                        <td colspan="4" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">TOTAL</td>
+                        <td id="totalJimpitan" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">0</td>
+                        <td id="totalBayar" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">0</td>
+                        <td id="totalKurang" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">0</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <input type="file" id="fileInput" class="hidden" accept=".xlsx">
+
+    <script>
+        document.getElementById('importBtn').addEventListener('click', () => {
+            document.getElementById('fileInput').click();
+        });
+
+        document.getElementById('fileInput').addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const sheetName = workbook.SheetNames[0];
+                const sheet = workbook.Sheets[sheetName];
+                const json = XLSX.utils.sheet_to_json(sheet);
+                json.forEach((row, index) => {
+                    addRowToTable(index + 1, row.Nama, row.Blok, row.Diperbarui, row.Jimpitan, row.Bayar, row.Kurang);
+                });
+                updateTotals();
+            };
+            reader.readAsArrayBuffer(file);
+        });
+
+        document.getElementById('saveBtn').addEventListener('click', () => {
+            const nm = document.getElementById('nm').value;
+            const bl = document.getElementById('bl').value;
+            const jim = document.getElementById('jim').checked ? 1000 : parseInt(document.getElementById('jimManual').value);
+            const by = parseInt(document.getElementById('by').value);
+            const kurang = jim - by;
+            const diperbarui = new Date().toLocaleString();
+            const table = document.getElementById('jimpitanTable').getElementsByTagName('tbody')[0];
+            const rowCount = table.rows.length;
+            addRowToTable(rowCount + 1, nm, bl, diperbarui, jim, by, kurang);
+            updateTotals();
+        });
+
+        document.getElementById('exportBtn').addEventListener('click', () => {
+            const table = document.getElementById('jimpitanTable');
+            const wb = XLSX.utils.table_to_book(table, { sheet: "Sheet1" });
+            XLSX.writeFile(wb, 'DataJimpitan.xlsx');
+        });
+
+        document.getElementById('printBtn').addEventListener('click', () => {
+            window.print();
+        });
+
+        document.getElementById('deleteUserBtn').addEventListener('click', () => {
+            const nm = document.getElementById('nm').value;
+            const table = document.getElementById('jimpitanTable').getElementsByTagName('tbody')[0];
+            for (let i = 0; i < table.rows.length; i++) {
+                if (table.rows[i].cells[1].innerText === nm) {
+                    table.deleteRow(i);
+                    break;
+                }
+            }
+            updateTotals();
+        });
+
+        document.getElementById('deleteAllBtn').addEventListener('click', () => {
+            const table = document.getElementById('jimpitanTable').getElementsByTagName('tbody')[0];
+            while (table.rows.length > 0) {
+                table.deleteRow(0);
+            }
+            updateTotals();
+        });
+
+        function addRowToTable(no, nama, blok, diperbarui, jimpitan, bayar, kurang) {
+            const table = document.getElementById('jimpitanTable').getElementsByTagName('tbody')[0];
+            const row = table.insertRow();
+            row.insertCell(0).innerText = no;
+            row.insertCell(1).innerText = nama;
+            row.insertCell(2).innerText = blok;
+            row.insertCell(3).innerText = diperbarui;
+            row.insertCell(4).innerText = jimpitan;
+            row.insertCell(5).innerText = bayar;
+            row.insertCell(6).innerText = kurang;
+
+            row.addEventListener('click', () => {
+                document.getElementById('nm').value = nama;
+                document.getElementById('bl').value = blok;
+                document.getElementById('jim').checked = jimpitan === 1000;
+                document.getElementById('jimManual').value = jimpitan !== 1000 ? jimpitan : 0;
+                document.getElementById('by').value = bayar;
+            });
+        }
+
+        function updateTotals() {
+            const table = document.getElementById('jimpitanTable').getElementsByTagName('tbody')[0];
+            let totalJimpitan = 0;
+            let totalBayar = 0;
+            let totalKurang = 0;
+            for (let i = 0; i < table.rows.length; i++) {
+                totalJimpitan += parseInt(table.rows[i].cells[4].innerText);
+                totalBayar += parseInt(table.rows[i].cells[5].innerText);
+                totalKurang += parseInt(table.rows[i].cells[6].innerText);
+            }
+            document.getElementById('totalJimpitan').innerText = totalJimpitan;
+            document.getElementById('totalBayar').innerText = totalBayar;
+            document.getElementById('totalKurang').innerText = totalKurang;
+        }
+    </script>
+</body>
+</html>
