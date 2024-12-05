@@ -34,7 +34,6 @@
             .container {
                 max-width: 100%;
             }
-			
         }
         table tr th {
             background: #3b82f6;
@@ -55,10 +54,9 @@
             .hide-on-mobile {
                 display: none;
             }
-.p-f {
-    padding: 5.5em 0.5em 0.5em 0.5em;
-}
-
+            .p-f {
+                padding: 5.5em 0.5em 0.5em 0.5em;
+            }
         }
         .shake {
             animation: shake 0.5s;
@@ -70,13 +68,13 @@
             75% { transform: translateX(-5px); }
             100% { transform: translateX(0); }
         }
-header {
-    position: fixed;
-	z-index: 1;
-}		
-.p-f {
-    padding: 5.5em 0.5em 0.5em 0.5em;
-}
+        header {
+            position: fixed;
+            z-index: 1;
+        }		
+        .p-f {
+            padding: 5.5em 0.5em 0.5em 0.5em;
+        }
     </style>
 </head>
 <body class="bg-gray-100 p-0 m-0">
@@ -165,7 +163,7 @@ header {
                             <th class="px-1 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-300 nowrap">No.</th>
                             <th class="px-6 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-300 nowrap">Nama</th>
                             <th class="px-2 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-300 nowrap">Blok</th>
-                            <th class="px-6 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-300 nowrap hide-on-mobile">Diperbarui</th>
+                            <th class="px-6 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-300 nowrap">Diperbarui</th>
                             <th class="px-2 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-300 nowrap">Jimpitan</th>
                             <th class="px-6 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-300 nowrap">Bayar</th>
                             <th class="px-6 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-300 nowrap">Kurang</th>
@@ -326,7 +324,7 @@ header {
             const bulanValue = monthValues[currentMonth];
             const kurang = jim + by - bulanValue;
 
-            addOrUpdateRow(null, nm, bl,kurang);
+            addOrUpdateRow(null, nm, bl, diperbarui, jim, by, kurang);
             updateTotals();
             saveDataToLocalStorage();
             resetForm();
@@ -505,7 +503,7 @@ header {
 
                 row.cells[0].classList.add('text-center');
                 row.cells[2].classList.add('text-center');
-                row.cells[3].classList.add('text-center', 'hide-on-mobile');
+                row.cells[3].classList.add('text-center');
                 row.cells[1].classList.add('pl-5', 'bg-blue-100');
                 row.cells[4].classList.add('pl-5');
                 row.cells[5].classList.add('pl-5');
