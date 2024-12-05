@@ -120,6 +120,26 @@
     <input type="file" id="fileInput" class="hidden" accept=".xlsx">
 
     <script>
+        const monthValues = {
+            0: 31 * 1000, // January
+            1: 29 * 1000, // February
+            2: 31 * 1000, // March
+            3: 30 * 1000, // April
+            4: 31 * 1000, // May
+            5: 30 * 1000, // June
+            6: 31 * 1000, // July
+            7: 31 * 1000, // August
+            8: 30 * 1000, // September
+            9: 31 * 1000, // October
+            10: 30 * 1000, // November
+            11: 31 * 1000  // December
+        };
+
+        const monthNames = [
+            "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+        ];
+
         document.getElementById('importBtn').addEventListener('click', () => {
             document.getElementById('fileInput').click();
         });
@@ -153,8 +173,11 @@
                 return;
             }
 
-            const kurang = jim - by;
-            const diperbarui = new Date().toLocaleString();
+            const diperbarui = formatDate(new Date());
+            const currentMonth = new Date().getMonth();
+            const bulanValue = monthValues[currentMonth];
+            const kurang = jim + by - bulanValue;
+
             addOrUpdateRow(null, nm, bl, diperbarui, jim, by, kurang);
             updateTotals();
             saveDataToLocalStorage();
@@ -250,7 +273,9 @@
                     const currentBayar = parseInt(table.rows[i].cells[5].innerText.replace(/[^0-9]/g, ''));
                     const newJimpitan = currentJimpitan + jimpitan;
                     const newBayar = currentBayar + bayar;
-                    const newKurang = newJimpitan - newBayar;
+                    const currentMonth = new Date().getMonth();
+                    const bulanValue = monthValues[currentMonth];
+                    const newKurang = newJimpitan + newBayar - bulanValue;
 
                     table.rows[i].cells[3].innerText = diperbarui;
                     table.rows[i].cells[4].innerText = formatCurrency(newJimpitan);
@@ -333,6 +358,7 @@
             document.getElementById('by').value = 0;
             document.getElementById('bl').readOnly = false;
         }
+
         function saveDataToLocalStorage() {
             const table = document.getElementById('jimpitanTable').getElementsByTagName('tbody')[0];
             const data = [];
@@ -363,6 +389,16 @@
 
         function formatCurrency(value) {
             return 'Rp' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
+        function formatDate(date) {
+            const day = date.getDate();
+            const month = monthNames[date.getMonth()];
+            const year = date.getFullYear();
+            const hours = date.getHours().toString().padStart(2, '0');
+            const minutes = date.getMinutes().toString().padStart(2, '0');
+            const seconds = date.getSeconds().toString().padStart(2, '0');
+            return `${day} ${month} ${year} ${hours}:${minutes}:${seconds}`;
         }
 
         window.onload = loadDataFromLocalStorage;
