@@ -49,10 +49,11 @@
     </style>
 </head>
 <body class="bg-gray-100 p-4">
-    <div class="container overflow-x-auto">
+    <div class="container mx-auto">
         <h1 class="text-2xl font-bold mb-4">Data Jimpitan</h1>
         <div class="flex justify-between items-center mb-4">
-            <div><a href="/Jimpitan.xlsx" class="bg-gray-500 text-white px-4 py-2 rounded mr-2"><i class="fas fa-download"></i></a>
+            <div>
+                <a href="/Jimpitan.xlsx" class="bg-gray-500 text-white px-4 py-2 rounded mr-2"><i class="fas fa-download"></i></a>
                 <button id="importBtn" class="bg-blue-500 text-white px-4 py-2 rounded mr-2"><i class="fas fa-file-import"></i></button>
                 <button id="exportBtn" class="bg-green-500 text-white px-4 py-2 rounded mr-2"><i class="fas fa-file-export"></i></button>
                 <button id="printBtn" class="bg-yellow-500 text-white px-4 py-2 rounded mr-2"><i class="fas fa-print"></i></button>
@@ -84,8 +85,8 @@
             </div>
             <button id="saveBtn" class="bg-blue-500 text-white px-4 py-2 rounded">Simpan</button>
         </div>
-        <div id="printArea" class="bg-white p-4 rounded shadow-md">
-            <table id="jimpitanTable" class="min-w-full divide-y divide-gray-200 border border-gray-300">
+        <div id="printArea" class="bg-white p-4 rounded shadow-md overflow-x-auto">
+            <table id="jimpitanTable" class="min-w-full divide-y divide-gray-200 border border-gray-300 text-xs">
                 <thead class="bg-gray-50">
                     <tr>
                         <th class="px-1 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-300 nowrap">No.</th>
@@ -143,7 +144,7 @@
             const jim = document.getElementById('jim').checked ? 1000 : parseInt(document.getElementById('jimManual').value);
             const by = parseInt(document.getElementById('by').value) || 0;
 
-            if (!nm || !bl || !by) {
+            if (!nm || !bl) {
                 alert('Ada yang belum di isi');
                 return;
             }
