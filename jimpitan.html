@@ -117,8 +117,8 @@
                 </div>
             </div>
             <div class="flex justify-between items-center">
+                <input type="text" id="search" class="block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm mr-4" placeholder="Cari Nama...">
                 <button id="saveBtn" class="bg-blue-500 text-white px-4 py-2 rounded">Simpan</button>
-                <input type="text" id="search" class="block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ml-4" placeholder="Cari Nama...">
             </div>
         </div>
        
@@ -151,12 +151,34 @@
     </div>
 
     <div class="fixed bottom-0 left-0 right-0 bg-white shadow-md p-4 flex justify-around">
-        <a href="master-jimpitan.xlsx" class="bg-gray-500 text-white px-4 py-2 rounded"><i class="fas fa-download"></i></a>
-        <button id="importBtn" class="bg-blue-500 text-white px-4 py-2 rounded"><i class="fas fa-file-import"></i></button>
-        <button id="exportBtn" class="bg-green-500 text-white px-4 py-2 rounded"><i class="fas fa-file-export"></i></button>
-        <button id="printBtn" class="bg-yellow-500 text-white px-4 py-2 rounded"><i class="fas fa-print"></i></button>
-        <button id="deleteUserBtn" class="bg-red-500 text-white px-4 py-2 rounded"><i class="fas fa-user-minus"></i></button>
-        <button id="deleteAllBtn" class="bg-red-700 text-white px-4 py-2 rounded"><i class="fas fa-trash-alt"></i></button>
+        <div class="flex flex-col items-center">
+            <a href="master-jimpitan.xlsx" class="bg-gray-500 text-white p-2 rounded-full"><i class="fas fa-download"></i></a>
+            <span class="text-xs mt-1">Download</span>
+        </div>
+        <div class="flex flex-col items-center">
+            <button id="importBtn" class="bg-blue-500 text-white p-2 rounded-full"><i class="fas fa-file-import"></i></button>
+            <span class="text-xs mt-1">Import</span>
+        </div>
+        <div class="flex flex-col items-center">
+            <button id="exportBtn" class="bg-green-500 text-white p-2 rounded-full"><i class="fas fa-file-export"></i></button>
+            <span class="text-xs mt-1">Export</span>
+        </div>
+        <div class="flex flex-col items-center">
+            <button id="printBtn" class="bg-yellow-500 text-white p-2 rounded-full"><i class="fas fa-print"></i></button>
+            <span class="text-xs mt-1">Print</span>
+        </div>
+        <div class="flex flex-col items-center">
+            <button id="deleteUserBtn" class="bg-red-500 text-white p-2 rounded-full"><i class="fas fa-user-minus"></i></button>
+            <span class="text-xs mt-1">Delete User</span>
+        </div>
+        <div class="flex flex-col items-center">
+            <button id="deleteMoneyBtn" class="bg-red-500 text-white p-2 rounded-full"><i class="fas fa-money-bill-wave"></i></button>
+            <span class="text-xs mt-1">Clear</span>
+        </div>
+        <div class="flex flex-col items-center">
+            <button id="deleteAllBtn" class="bg-red-700 text-white p-2 rounded-full"><i class="fas fa-trash-alt"></i></button>
+            <span class="text-xs mt-1">Delete All</span>
+        </div>
     </div>
 
     <input type="file" id="fileInput" class="hidden" accept=".xlsx">
@@ -182,6 +204,23 @@
             "Juli", "Agustus", "September", "Oktober", "November", "Desember"
         ];
 
+        const gradients = [
+            'linear-gradient(90deg, #ff7e5f, #feb47b, #ff7e5f)',
+            'linear-gradient(90deg, #6a11cb, #2575fc, #6a11cb)',
+            'linear-gradient(90deg, #ff6a00, #ee0979, #ff6a00)',
+            'linear-gradient(90deg, #00c6ff, #0072ff, #00c6ff)',
+            'linear-gradient(90deg, #f7971e, #ffd200, #f7971e)'
+        ];
+
+        let currentGradientIndex = 0;
+
+        function changeGradient() {
+            currentGradientIndex = (currentGradientIndex + 1) % gradients.length;
+            document.querySelector('.gradient-bg').style.background = gradients[currentGradientIndex];
+        }
+
+        setInterval(changeGradient, 5000);
+
         document.getElementById('importBtn').addEventListener('click', () => {
             document.getElementById('fileInput').click();
         });
@@ -196,7 +235,9 @@
                 const sheet = workbook.Sheets[sheetName];
                 const json = XLSX.utils.sheet_to_json(sheet);
                 json.forEach((row, index) => {
-                    addOrUpdateRow(index + 1, row.Nama, row.Blok, row.Diperbarui, row.Jimpitan, row.Bayar, row.Kurang);
+                    if (row.Nama !== 'Total') {
+                        addOrUpdateRow(index + 1, row.Nama, row.Blok, row.Diperbarui, row.Jimpitan, row.Bayar, row.Kurang);
+                    }
                 });
                 updateTotals();
                 saveDataToLocalStorage();
@@ -251,6 +292,19 @@
             resetForm();
         });
 
+        document.getElementById('deleteMoneyBtn').addEventListener('click', () => {
+            const table = document.getElementById('jimpitanTable').getElementsByTagName('tbody')[0];
+            for (let i = 0; i < table.rows.length; i++) {
+                table.rows[i].cells[3].innerText = formatDate(new Date());
+                table.rows[i].cells[4].innerText = 'Rp0';
+                table.rows[i].cells[5].innerText = 'Rp0';
+                table.rows[i].cells[6].innerText = 'Rp0';
+            }
+            updateTotals();
+            saveDataToLocalStorage();
+            resetForm();
+        });
+
         document.getElementById('deleteAllBtn').addEventListener('click', () => {
             const table = document.getElementById('jimpitanTable').getElementsByTagName('tbody')[0];
             while (table.rows.length > 0) {
@@ -283,7 +337,7 @@
                     document.getElementById('bl').value = table.rows[i].cells[2].innerText;
                     document.getElementById('bl').readOnly = true;
                     found = true;
-                    break;
+                   break;
                 }
             }
             if (!found) {
@@ -334,7 +388,8 @@
                     table.rows[i].cells[5].innerText = formatCurrency(newBayar);
                     table.rows[i].cells[6].innerText = formatCurrency(newKurang);
 
-                    if (newKurang < 0) {                    table.rows[i].cells[6].classList.add('text-red-500', 'font-bold');
+                    if (newKurang < 0) {
+                        table.rows[i].cells[6].classList.add('text-red-500', 'font-bold');
                     } else {
                         table.rows[i].cells[6].classList.remove('text-red-500', 'font-bold');
                     }
