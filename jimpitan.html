@@ -20,9 +20,6 @@
                 top: 0;
                 width: 100%;
             }
-            .hide-on-mobile {
-                display: table-cell !important;
-            }
         }
         .hover-highlight:hover {
             background-color: #f3f4f6;
@@ -50,162 +47,119 @@
         table tr:nth-child(even) {
             background-color: #f2f2f2;
         }
-        @media (max-width: 768px) {
-            .hide-on-mobile {
-                display: none;
-            }
-            .p-f {
-                padding: 5.5em 0.5em 0.5em 0.5em;
-            }
+        .gradient-bg {
+            background: linear-gradient(90deg, #ff7e5f, #feb47b, #ff7e5f);
         }
-        .shake {
-            animation: shake 0.5s;
-        }
-        @keyframes shake {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            50% { transform: translateX(5px); }
-            75% { transform: translateX(-5px); }
-            100% { transform: translateX(0); }
-        }
-        header {
+        .popup-menu {
+            display: none;
             position: fixed;
-            z-index: 1;
-        }		
-        .p-f {
-            padding: 5.5em 0.5em 0.5em 0.5em;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
         }
     </style>
 </head>
-<body class="bg-gray-100 p-0 m-0">
-    <div id="loginPage" class="flex items-center justify-center h-screen bg-blue-500">
-        <div class="bg-white p-6 rounded shadow-lg text-center">
-            <img src="https://yt3.ggpht.com/wiACRxQmO56kaq4gYqaMLUoDg2dy3MIr5a9J3yXVAai0JuXl5AsKHF9S6NNkG41xFthrhChhaw=s176-c-k-c0x00ffffff-no-rj-mo" alt="Logo of a community management system with a house and people" class="h-20 w-20 mx-auto mb-4 rounded-full">
-            <h1 class="text-2xl font-bold mb-4">LOH AGUNG 6</h1>
-            <input type="password" id="pinInput" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Enter PIN">
-            <p id="errorMessage" class="text-red-500 mt-2 hidden">Incorrect PIN. Please try again.</p>
-            <p id="countdownMessage" class="text-red-500 mt-2 hidden"></p>
+<body class="bg-gray-100 p-3">
+    <div class="fixed top-0 left-0 right-0 gradient-bg p-4 flex justify-between items-center shadow-md z-50">
+        <div class="flex items-center">
+            <img src="https://yt3.ggpht.com/wiACRxQmO56kaq4gYqaMLUoDg2dy3MIr5a9J3yXVAai0JuXl5AsKHF9S6NNkG41xFthrhChhaw=s176-c-k-c0x00ffffff-no-rj-mo" alt="Logo of a community management system with a circular border" class="w-10 h-10 rounded-full mr-3">
+            <h1 class="text-white text-xl font-bold">Admin Jimpitan</h1>
         </div>
+        <button id="menuBtn" class="text-white text-2xl"><i class="fas fa-bars"></i></button>
     </div>
 
-    <div id="mainPage" class="hidden">
-        <header class="bg-blue-500 text-white p-4 flex justify-between items-center w-full">
-            <div class="flex items-center">
-                <img src="https://yt3.ggpht.com/wiACRxQmO56kaq4gYqaMLUoDg2dy3MIr5a9J3yXVAai0JuXl5AsKHF9S6NNkG41xFthrhChhaw=s176-c-k-c0x00ffffff-no-rj-mo" alt="Logo of a community management system with a house and people" class="h-10 w-10 mr-2 rounded-full">
-                <h1 class="text-2xl font-bold">Admin Jimpitan</h1>
-            </div>
-            <div class="relative flex items-center">
-                <button id="profileBtn" class="text-white focus:outline-none mr-4">
-                    <i class="fas fa-user text-2xl"></i>
-                </button>
-                <button id="menuBtn" class="text-white focus:outline-none">
-                    <i class="fas fa-bars text-2xl"></i>
-                </button>
-                <div id="menuPopup" style="margin-top: 12.5rem" class="absolute right-0 w-48 bg-white border border-gray-200 rounded shadow-lg hidden">
-                    <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Bendahara</a>
-                    <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Jimpitan</a>
-                    <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Ronda</a>
-                    <a href="#" id="logoutBtn" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Logout</a>
-                </div>
-                <div id="profilePopup" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg hidden">
-                    <a href="#" id="changePinBtn" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Change PIN</a>
-                </div>
-            </div>
-        </header>
-        <div class="container mx-auto p-f">
-            <div class="flex justify-between items-center mb-4">
+    <div id="popupOverlay" class="popup-overlay"></div>
+    <div id="popupMenu" class="popup-menu">
+        <ul>
+            <li class="mb-2"><a href="#" class="text-gray-700 text-lg">Bendahara</a></li>
+            <li class="mb-2"><a href="#" class="text-gray-700 text-lg">Jimpitan</a></li>
+            <li><a href="#" class="text-gray-700 text-lg">Denda Ronda</a></li>
+        </ul>
+    </div>
+
+    <div class="container mx-auto mt-20">
+        <h1 class="text-2xl font-bold mb-4 text-center">Manajemen Jimpitan RT</h1>
+        <div class="bg-white p-4 rounded shadow-md mb-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                 <div>
-                    <a href="Jimpitan.xlsx" class="bg-gray-500 text-white px-4 py-2 rounded mr-2"><i class="fas fa-download"></i></a>
-                    <button id="importBtn" class="bg-blue-500 text-white px-4 py-2 rounded mr-2"><i class="fas fa-upload"></i></button>
-                    <button id="exportBtn" class="bg-green-500 text-white px-4 py-2 rounded mr-2"><i class="fas fa-file-excel"></i></button>
-                    <button id="printBtn" class="bg-yellow-500 text-white px-4 py-2 rounded mr-2"><i class="fas fa-print"></i></button>
-                    <button id="deleteUserBtn" class="bg-red-500 text-white px-4 py-2 rounded mr-2"><i class="fas fa-user-minus"></i></button>
-                    <button id="deleteAllBtn" class="bg-red-700 text-white px-4 py-2 rounded"><i class="fas fa-trash-alt"></i></button>
+                    <label for="nm" class="block text-sm font-medium text-gray-700">Nama</label>
+                    <input type="text" id="nm" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                 </div>
-            </div>
-            <div class="bg-white p-4 rounded shadow-md mb-4">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-                    <div>
-                        <label for="nm" class="block text-sm font-medium text-gray-700">Nama</label>
-                        <input type="text" id="nm" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    </div>
-                    <div>
-                        <label for="bl" class="block text-sm font-medium text-gray-700">Blok</label>
-                        <input type="text" id="bl" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" readonly>
-                    </div>
-                    <div>
-                        <label for="jim" class="block text-sm font-medium text-gray-700">Jimpitan</label>
-                        <div class="flex items-center mt-1">
-                            <input type="checkbox" id="jim" value="1000" class="mr-2">
-                            <input type="number" id="jimManual" value="0" class="block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" disabled>
-                        </div>
-                    </div>
-                    <div>
-                        <label for="by" class="block text-sm font-medium text-gray-700">Bayar</label>
-                        <input type="number" id="by" value="0" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <div>
+                    <label for="bl" class="block text-sm font-medium text-gray-700">Blok</label>
+                    <input type="text" id="bl" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" readonly>
+                </div>
+                <div>
+                    <label for="jim" class="block text-sm font-medium text-gray-700">Jimpitan</label>
+                    <div class="flex items-center mt-1">
+                        <input type="checkbox" id="jim" value="1000" class="mr-2">
+                        <input type="number" id="jimManual" value="0" class="block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" disabled>
                     </div>
                 </div>
-                <div class="flex items-center">
-                    <button id="saveBtn" class="bg-blue-500 text-white px-4 py-2 rounded mr-2">Simpan</button>
-                    <div class="relative w-full">
-                        <input type="text" id="search" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 pl-10 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Cari Nama...">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="fas fa-search text-gray-400"></i>
-                        </div>
-                    </div>
+                <div>
+                    <label for="by" class="block text-sm font-medium text-gray-700">Bayar</label>
+                    <input type="number" id="by" value="0" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                 </div>
             </div>
-           
-            <div id="printArea" class="bg-white p-4 rounded shadow-md overflow-x-auto">
-                <table id="jimpitanTable" class="min-w-full divide-y divide-gray-200 border border-gray-300 text-xs">
-                    <thead class="bg-blue-500">
-                        <tr>
-                            <th class="px-1 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-300 nowrap">No.</th>
-                            <th class="px-6 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-300 nowrap">Nama</th>
-                            <th class="px-2 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-300 nowrap">Blok</th>
-                            <th class="px-6 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-300 nowrap">Diperbarui</th>
-                            <th class="px-2 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-300 nowrap">Jimpitan</th>
-                            <th class="px-6 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-300 nowrap">Bayar</th>
-                            <th class="px-6 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-300 nowrap">Kurang</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                        <!-- Rows will be dynamically added here -->
-                    </tbody>
-                    <tfoot class="bg-blue-500">
-                        <tr>
-                            <td colspan="4" class="px-6 py-3 text-right text-xs font-medium text-white uppercase tracking-wider border border-gray-300">TOTAL</td>
-                            <td id="totalJimpitan" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-gray-300">Rp0</td>
-                            <td id="totalBayar" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-gray-300">Rp0</td>
-                            <td id="totalKurang" class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border border-gray-300">Rp0</td>
-                        </tr>
-                    </tfoot>
-                </table>
+            <div class="flex justify-between items-center">
+                <button id="saveBtn" class="bg-blue-500 text-white px-4 py-2 rounded">Simpan</button>
+                <input type="text" id="search" class="block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ml-4" placeholder="Cari Nama...">
             </div>
         </div>
-
-        <footer class="text-center mt-4">
-            <p class="text-gray-600">By Youshe</p>
-        </footer>
-
-        <div id="popupAlert" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden">
-            <div class="bg-white p-6 rounded shadow-lg">
-                <h2 class="text-xl font-bold mb-4">Sabar booss...!!</h2>
-                <p id="popupMessage" class="mb-4"></p>
-                
-            </div><button id="closePopup" class="bg-red-500 text-white px-2 rounded">X</button>
+       
+        <div id="printArea" class="bg-white p-4 rounded shadow-md overflow-x-auto">
+            <table id="jimpitanTable" class="min-w-full divide-y divide-gray-200 border border-gray-300 text-xs">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-1 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-300 nowrap">No.</th>
+                        <th class="px-6 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-300 nowrap">Nama</th>
+                        <th class="px-2 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-300 nowrap">Blok</th>
+                        <th class="px-6 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-300 nowrap">Diperbarui</th>
+                        <th class="px-2 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-300 nowrap">Jimpitan</th>
+                        <th class="px-6 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-300 nowrap">Bayar</th>
+                        <th class="px-6 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-300 nowrap">Kurang</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <!-- Rows will be dynamically added here -->
+                </tbody>
+                <tfoot class="bg-gray-50">
+                    <tr>
+                        <td colspan="4" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300">TOTAL</td>
+                        <td id="totalJimpitan" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300">Rp0</td>
+                        <td id="totalBayar" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300">Rp0</td>
+                        <td id="totalKurang" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300">Rp0</td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
-
-        <div id="changePinPopup" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden">
-            <div class="bg-white p-6 rounded shadow-lg">
-                <h2 class="text-xl font-bold mb-4">Change PIN</h2>
-                <input type="password" id="newPinInput" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Enter New PIN">
-                <button id="saveNewPinBtn" class="bg-blue-500 text-white px-4 py-2 rounded mt-4">Save</button>
-            </div>
-        </div>
-
-        <input type="file" id="fileInput" class="hidden" accept=".xlsx">
     </div>
+
+    <div class="fixed bottom-0 left-0 right-0 bg-white shadow-md p-4 flex justify-around">
+        <a href="master-jimpitan.xlsx" class="bg-gray-500 text-white px-4 py-2 rounded"><i class="fas fa-download"></i></a>
+        <button id="importBtn" class="bg-blue-500 text-white px-4 py-2 rounded"><i class="fas fa-file-import"></i></button>
+        <button id="exportBtn" class="bg-green-500 text-white px-4 py-2 rounded"><i class="fas fa-file-export"></i></button>
+        <button id="printBtn" class="bg-yellow-500 text-white px-4 py-2 rounded"><i class="fas fa-print"></i></button>
+        <button id="deleteUserBtn" class="bg-red-500 text-white px-4 py-2 rounded"><i class="fas fa-user-minus"></i></button>
+        <button id="deleteAllBtn" class="bg-red-700 text-white px-4 py-2 rounded"><i class="fas fa-trash-alt"></i></button>
+    </div>
+
+    <input type="file" id="fileInput" class="hidden" accept=".xlsx">
 
     <script>
         const monthValues = {
@@ -227,64 +181,6 @@
             "Januari", "Februari", "Maret", "April", "Mei", "Juni",
             "Juli", "Agustus", "September", "Oktober", "November", "Desember"
         ];
-
-        let correctPin = localStorage.getItem('currentPin') || "6666";
-        let currentPin = correctPin;
-        let loginAttempts = 0;
-        let lockoutTimer;
-
-        document.getElementById('pinInput').addEventListener('input', (event) => {
-            const pin = event.target.value;
-            if (pin === currentPin) {
-                document.getElementById('loginPage').classList.add('hidden');
-                document.getElementById('mainPage').classList.remove('hidden');
-                localStorage.setItem('loggedIn', 'true');
-            } else if (pin.length === 4) {
-                loginAttempts++;
-                if (loginAttempts >= 3) {
-                    lockout();
-                } else {
-                    showErrorMessage();
-                    shakeInput();
-                }
-            }
-        });
-
-        function showErrorMessage() {
-            const errorMessage = document.getElementById('errorMessage');
-            errorMessage.classList.remove('hidden');
-            setTimeout(() => {
-                errorMessage.classList.add('hidden');
-            }, 2000);
-        }
-
-        function shakeInput() {
-            const pinInput = document.getElementById('pinInput');
-            pinInput.classList.add('shake');
-            setTimeout(() => {
-                pinInput.classList.remove('shake');
-            }, 500);
-        }
-
-        function lockout() {
-            const pinInput = document.getElementById('pinInput');
-            const countdownMessage = document.getElementById('countdownMessage');
-            pinInput.disabled = true;
-            countdownMessage.classList.remove('hidden');
-            let countdown = 60;
-            countdownMessage.innerText = `Please wait ${countdown} seconds`;
-
-            lockoutTimer = setInterval(() => {
-                countdown--;
-                countdownMessage.innerText = `Please wait ${countdown} seconds`;
-                if (countdown <= 0) {
-                    clearInterval(lockoutTimer);
-                    pinInput.disabled = false;
-                    countdownMessage.classList.add('hidden');
-                    loginAttempts = 0;
-                }
-            }, 1000);
-        }
 
         document.getElementById('importBtn').addEventListener('click', () => {
             document.getElementById('fileInput').click();
@@ -315,7 +211,7 @@
             const by = parseInt(document.getElementById('by').value) || 0;
 
             if (!nm || !bl) {
-                showPopup('Ada yang belum di isi');
+                alert('Ada yang belum di isi');
                 return;
             }
 
@@ -339,10 +235,6 @@
         document.getElementById('printBtn').addEventListener('click', () => {
             window.print();
         });
-
-        window.onafterprint = () => {
-            location.reload();
-        };
 
         document.getElementById('deleteUserBtn').addEventListener('click', () => {
             const nm = document.getElementById('nm').value;
@@ -415,47 +307,13 @@
         });
 
         document.getElementById('menuBtn').addEventListener('click', () => {
-            const menuPopup = document.getElementById('menuPopup');
-            menuPopup.classList.toggle('hidden');
+            document.getElementById('popupOverlay').style.display = 'block';
+            document.getElementById('popupMenu').style.display = 'block';
         });
 
-        document.getElementById('profileBtn').addEventListener('click', () => {
-            const profilePopup = document.getElementById('profilePopup');
-            profilePopup.classList.toggle('hidden');
-        });
-
-        document.getElementById('logoutBtn').addEventListener('click', () => {
-            localStorage.removeItem('loggedIn');
-            location.reload();
-        });
-
-        document.getElementById('changePinBtn').addEventListener('click', () => {
-            document.getElementById('changePinPopup').classList.remove('hidden');
-        });
-
-        document.getElementById('saveNewPinBtn').addEventListener('click', () => {
-            const newPin = document.getElementById('newPinInput').value;
-            if (newPin.length === 4) {
-                currentPin = newPin;
-                localStorage.setItem('currentPin', newPin);
-                document.getElementById('changePinPopup').classList.add('hidden');
-                alert('PIN changed successfully');
-                localStorage.removeItem('loggedIn');
-                location.reload();
-            } else {
-                alert('PIN must be 4 digits');
-            }
-        });
-
-        document.addEventListener('click', (event) => {
-            const menuPopup = document.getElementById('menuPopup');
-            const profilePopup = document.getElementById('profilePopup');
-            if (!event.target.closest('#menuBtn') && !event.target.closest('#menuPopup')) {
-                menuPopup.classList.add('hidden');
-            }
-            if (!event.target.closest('#profileBtn') && !event.target.closest('#profilePopup')) {
-                profilePopup.classList.add('hidden');
-            }
+        document.getElementById('popupOverlay').addEventListener('click', () => {
+            document.getElementById('popupOverlay').style.display = 'none';
+            document.getElementById('popupMenu').style.display = 'none';
         });
 
         function addOrUpdateRow(no, nama, blok, diperbarui, jimpitan, bayar, kurang) {
@@ -476,11 +334,11 @@
                     table.rows[i].cells[5].innerText = formatCurrency(newBayar);
                     table.rows[i].cells[6].innerText = formatCurrency(newKurang);
 
-                    if (newKurang < 0) {
-                        table.rows[i].cells[6].classList.add('text-red-500', 'font-bold');
+                    if (newKurang < 0) {                    table.rows[i].cells[6].classList.add('text-red-500', 'font-bold');
                     } else {
                         table.rows[i].cells[6].classList.remove('text-red-500', 'font-bold');
                     }
+
                     found = true;
                     break;
                 }
@@ -504,7 +362,7 @@
                 row.cells[0].classList.add('text-center');
                 row.cells[2].classList.add('text-center');
                 row.cells[3].classList.add('text-center');
-                row.cells[1].classList.add('pl-5', 'bg-blue-100');
+                row.cells[1].classList.add('pl-5');
                 row.cells[4].classList.add('pl-5');
                 row.cells[5].classList.add('pl-5');
                 row.cells[6].classList.add('pl-5');
@@ -594,22 +452,7 @@
             return `${day} ${month} ${year} ${hours}:${minutes}:${seconds}`;
         }
 
-        function showPopup(message) {
-            document.getElementById('popupMessage').innerText = message;
-            document.getElementById('popupAlert').classList.remove('hidden');
-        }
-
-        document.getElementById('closePopup').addEventListener('click', () => {
-            document.getElementById('popupAlert').classList.add('hidden');
-        });
-
-        window.onload = () => {
-            if (localStorage.getItem('loggedIn') === 'true') {
-                document.getElementById('loginPage').classList.add('hidden');
-                document.getElementById('mainPage').classList.remove('hidden');
-            }
-            loadDataFromLocalStorage();
-        };
+        window.onload = loadDataFromLocalStorage;
     </script>
 </body>
 </html>
