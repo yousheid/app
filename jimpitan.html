@@ -6,6 +6,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
     <style>
         @media print {
             body * {
@@ -166,6 +168,10 @@
             <span class="text-xs mt-1">Export</span>
         </div>
         <div class="flex flex-col items-center">
+            <button id="pdfBtn" class="bg-red-500 text-white p-2 rounded-full"><i class="fas fa-file-pdf"></i></button>
+            <span class="text-xs mt-1">PDF</span>
+        </div>
+        <div class="flex flex-col items-center">
             <button id="printBtn" class="bg-yellow-500 text-white p-2 rounded-full"><i class="fas fa-print"></i></button>
             <span class="text-xs mt-1">Print</span>
         </div>
@@ -279,6 +285,13 @@
             XLSX.writeFile(wb, 'DataJimpitan.xlsx');
         });
 
+        document.getElementById('pdfBtn').addEventListener('click', () => {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.autoTable({ html: '#jimpitanTable' });
+            doc.save('DataJimpitan.pdf');
+        });
+
         document.getElementById('printBtn').addEventListener('click', () => {
             window.print();
         });
@@ -338,9 +351,7 @@
             const nm = event.target.value;
             const table = document.getElementById('jimpitanTable').getElementsByTagName('tbody')[0];
             let found = false;
-            for (let i = 0; i < table.rows.length;
-
-                i++) {
+            for (let i = 0; i < table.rows.length; i++) {
                 if (table.rows[i].cells[1].innerText === nm) {
                     document.getElementById('bl').value = table.rows[i].cells[2].innerText;
                     document.getElementById('bl').readOnly = true;
