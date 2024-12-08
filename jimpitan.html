@@ -56,7 +56,7 @@
             display: none;
             position: fixed;
             top: 15%;
-            left: 92%;
+            left: 82%;
             transform: translate(-50%, -50%);
             background: white;
             padding: 20px;
@@ -74,6 +74,16 @@
             background: rgba(0, 0, 0, 0.5);
             z-index: 999;
         }
+				.popup-menu ul li {
+    min-width: 135px;
+}
+		.popup-menu ul li:hover {
+    background-color: #fbbf24;
+    padding: 0 10px;
+    min-width: 135px;
+    margin-left: -10px;
+    margin-right: -20px;
+}
     </style>
 </head>
 <body class="bg-gray-100 p-3">
@@ -98,7 +108,7 @@
     </div>
 
     <div class="container mx-auto mt-20">
-        <div class="bg-white p-4 rounded shadow-md mb-4">
+        <div class="gradient-bg p-4 rounded shadow-md mb-4">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                 <div>
                     <label for="nm" class="block text-sm font-medium text-gray-700">Nama</label>
@@ -157,14 +167,14 @@
     <div class="fixed bottom-0 left-0 right-0 bg-white shadow-md p-4 flex justify-around mb-0">
         <div class="flex flex-col items-center">
             <a href="master-jimpitan.xlsx" class="bg-gray-500 text-white p-2 rounded-full"><i class="fas fa-download"></i></a>
-            <span class="text-xs mt-1">Download</span>
+            <span class="text-xs mt-1">Contoh</span>
         </div>
         <div class="flex flex-col items-center">
             <button id="importBtn" class="bg-blue-500 text-white p-2 rounded-full"><i class="fas fa-file-import"></i></button>
             <span class="text-xs mt-1">Import</span>
         </div>
         <div class="flex flex-col items-center">
-            <button id="exportBtn" class="bg-green-500 text-white p-2 rounded-full"><i class="fas fa-file-export"></i></button>
+            <button id="exportBtn" class="bg-green-500 text-white p-2 rounded-full"><i class="fas fa-file-excel"></i></button>
             <span class="text-xs mt-1">Export</span>
         </div>
         <div class="flex flex-col items-center">
@@ -177,7 +187,7 @@
         </div>
         <div class="flex flex-col items-center">
             <button id="deleteUserBtn" class="bg-red-500 text-white p-2 rounded-full"><i class="fas fa-user-minus"></i></button>
-            <span class="text-xs mt-1">Delete User</span>
+            <span class="text-xs mt-1">Del User</span>
         </div>
         <div class="flex flex-col items-center">
             <button id="deleteMoneyBtn" class="bg-red-500 text-white p-2 rounded-full"><i class="fas fa-money-bill-wave"></i></button>
@@ -185,14 +195,14 @@
         </div>
         <div class="flex flex-col items-center">
             <button id="deleteAllBtn" class="bg-red-700 text-white p-2 rounded-full"><i class="fas fa-trash-alt"></i></button>
-            <span class="text-xs mt-1">Delete All</span>
+            <span class="text-xs mt-1">Del All</span>
         </div>
     </div>
 
     <div class="container mx-auto mt-4 text-center">
-        <p class="text-gray-500">@2024 - by Youshe</p>
+        <p class="text-gray-500">@2024 - by <a href="https://www.youtube.com/@youshe"> Youshe </a></p>
     </div>
-
+</br></br></br></br>
     <input type="file" id="fileInput" class="hidden" accept=".xlsx">
 
     <script>
