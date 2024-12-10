@@ -38,7 +38,7 @@ z-index: -999;
 #border {border:3px solid red;
 background-color: white;
 }
-span{padding-bottom:10px;margin-top:-15px}
+.sub{font-size:small; background:red;color:white;padding:5px 10px;border-radius:5px}
   </style>
  </head>
  <body class="bg-gray-100 relative">
@@ -46,8 +46,8 @@ span{padding-bottom:10px;margin-top:-15px}
   <div class="container mx-auto p-1 relative z-10">
    <h1 class="text-3xl font-bold text-center mb-4">
     PEMILIHAN KETUA RW 23
+<center><span class="sub">RW 23 Jaten Karanganyar</span></center>
    </h1>
-<center><span>RW 23 Jaten Karanganyar</span></center>
    <div class="flex flex-wrap justify-center space-x-4">
     <div class="text-center mb-4"><p class="number-badge text-xl font-bold">1</p>
      <img id="border" alt="Foto peserta 1, seorang pria dengan jas dan dasi" class="cursor-pointer rounded-full  w-36 h-36 md:w-36 md:h-36 p-1 border" height="80" onclick="vote(0)" src="https://raw.githubusercontent.com/yousheid/app/refs/heads/main/_20241210_115619.JPG" width="80"/>
@@ -90,7 +90,7 @@ span{padding-bottom:10px;margin-top:-15px}
     <p id="result2" class="mb-2">DODIK MAYANTORO: 0 suara</p>
     <p id="winner" class="font-bold">Pemenang: -</p>
    </div>
-<center>By YOUSHE</center>
+<center class="sub">By YOUSHE</center>
   </div>
    <script>
    let votes = JSON.parse(localStorage.getItem('votes')) || [0, 0, 0];
