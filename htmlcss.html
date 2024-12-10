@@ -1,0 +1,113 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Admin Jimpitan
+  </title>
+  <link rel="icon" href="https://storage.googleapis.com/a1aa/image/Mce1JuWHfeUNjot1U5UuSSdj2s2x46fRYvQjpOJH870IFVlPB.jpg" type="image/jpeg"/>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   .draggable {
+            position: absolute;
+            cursor: move;
+        }
+  </style>
+ </head>
+ <body class="bg-gray-100 flex flex-col min-h-screen">
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-orange-400 to-orange-300 p-4 flex justify-between items-center">
+   <div class="flex items-center">
+    <img alt="Logo of Admin Jimpitan, a circular logo with a placeholder design" class="h-10 w-10 rounded-full" height="40" src="https://storage.googleapis.com/a1aa/image/Mce1JuWHfeUNjot1U5UuSSdj2s2x46fRYvQjpOJH870IFVlPB.jpg" width="40"/>
+    <span class="text-white font-bold ml-2">
+     Admin Jimpitan
+    </span>
+   </div>
+   <div class="relative">
+    <div class="flex items-center space-x-4">
+     <i class="fas fa-download text-white">
+     </i>
+     <i class="fas fa-file-import text-white">
+     </i>
+     <i class="fas fa-expand text-white">
+     </i>
+     <i class="fas fa-bars text-white cursor-pointer" onclick="toggleMenu()">
+     </i>
+    </div>
+    <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-20 hidden" id="dropdownMenu">
+     <a class="block px-4 py-2 text-gray-800 hover:bg-gray-200" href="#">
+      Setting
+     </a>
+     <a class="block px-4 py-2 text-gray-800 hover:bg-gray-200" href="#">
+      Bendahara
+     </a>
+     <a class="block px-4 py-2 text-gray-800 hover:bg-gray-200" href="#">
+      Jimpitan
+     </a>
+    </div>
+   </div>
+  </header>
+  <!-- Main Content -->
+  <main class="flex-grow p-4">
+   <!-- Empty content area -->
+  </main>
+  <!-- Footer -->
+  <footer class="bg-white p-4 fixed bottom-0 w-full flex justify-around items-center shadow-md">
+   <div class="flex flex-col items-center" onclick="exportFunction()">
+    <i class="fas fa-file-export text-green-600 text-2xl">
+    </i>
+    <span class="text-gray-600 text-sm">
+     Export
+    </span>
+   </div>
+   <div class="flex flex-col items-center" onclick="pdfFunction()">
+    <i class="fas fa-file-pdf text-red-600 text-2xl">
+    </i>
+    <span class="text-gray-600 text-sm">
+     PDF
+    </span>
+   </div>
+   <div class="flex flex-col items-center" onclick="printFunction()">
+    <i class="fas fa-print text-yellow-600 text-2xl">
+    </i>
+    <span class="text-gray-600 text-sm">
+     Print
+    </span>
+   </div>
+   <div class="flex flex-col items-center" onclick="delUserFunction()">
+    <i class="fas fa-user-times text-red-600 text-2xl">
+    </i>
+    <span class="text-gray-600 text-sm">
+     Del User
+    </span>
+   </div>
+   <div class="flex flex-col items-center" onclick="clearFunction()">
+    <i class="fas fa-times-circle text-red-600 text-2xl">
+    </i>
+    <span class="text-gray-600 text-sm">
+     Clear
+    </span>
+   </div>
+   <div class="flex flex-col items-center" onclick="delAllFunction()">
+    <i class="fas fa-trash text-red-600 text-2xl">
+    </i>
+    <span class="text-gray-600 text-sm">
+     Del All
+    </span>
+   </div>
+  </footer>
+  <!-- Floating Plus Button -->
+  <div class="draggable bg-yellow-500 text-white h-12 w-12 flex items-center justify-center rounded-full shadow-lg" id="draggable-plus" style="right: 10px; bottom: 50%; transform: translateY(50%);">
+   <i class="fas fa-plus text-lg">
+   </i>
+  </div>
+  <script>
+   function toggleMenu() {
+        const menu = document.getElementById('dropdownMenu');
+        menu.classList.toggle('hidden');
+    }
+  </script>
+ </body>
+</html>
