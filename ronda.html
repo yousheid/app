@@ -10,6 +10,10 @@
         .draggable {
             position: absolute;
         }
+        table, th, td {
+            border: 1px solid #e1e0e0;
+            white-space: nowrap;
+        }
         table tr:nth-child(even) {
             background-color: #f2f2f2;
         }
@@ -21,6 +25,8 @@
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
     <!-- Header -->
@@ -31,9 +37,11 @@
         </div>
         <div class="relative">
             <div class="flex items-center space-x-4">
-                <i class="fas fa-download text-white"></i>
+                <a href="/denda_ronda.xlsx" download>
+                    <i class="fas fa-download text-white"></i>
+                </a>
                 <i class="fas fa-file-import text-white cursor-pointer" onclick="document.getElementById('fileInput').click()"></i>
-                <i class="fas fa-expand text-white"></i>
+                <i class="fas fa-expand text-white cursor-pointer" onclick="toggleFullScreen()"></i>
                 <i class="fas fa-bars text-white cursor-pointer" onclick="toggleMenu()"></i>
             </div>
             <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-20 hidden" id="dropdownMenu">
@@ -46,7 +54,7 @@
     <!-- Main Content -->
     <main class="flex-grow p-4">
         <div class="overflow-x-auto">
-            <table class="min-w-full bg-white">
+            <table class="min-w-full bg-white" id="dataTable">
                 <thead>
                     <tr>
                         <th class="py-2 px-4 border-b">No</th>
@@ -69,15 +77,15 @@
     </main>
     <!-- Footer -->
     <footer class="bg-white p-4 fixed bottom-0 w-full flex justify-around items-center shadow-md">
-        <div class="flex flex-col items-center" onclick="exportFunction()">
+        <div class="flex flex-col items-center" onclick="exportTableToExcel()">
             <i class="fas fa-file-export text-green-600 text-2xl"></i>
             <span class="text-gray-600 text-sm">Export</span>
         </div>
-        <div class="flex flex-col items-center" onclick="pdfFunction()">
+        <div class="flex flex-col items-center" onclick="exportTableToPDF()">
             <i class="fas fa-file-pdf text-red-600 text-2xl"></i>
             <span class="text-gray-600 text-sm">PDF</span>
         </div>
-        <div class="flex flex-col items-center" onclick="printFunction()">
+        <div class="flex flex-col items-center" onclick="printTable()">
             <i class="fas fa-print text-yellow-600 text-2xl"></i>
             <span class="text-gray-600 text-sm">Print</span>
         </div>
@@ -298,7 +306,7 @@
         // Fungsi untuk menampilkan atau menyembunyikan menu dropdown
         function toggleMenu() {
             const dropdownMenu = document.getElementById('dropdownMenu');
-            dropdownMenu.classList.toggle('hidden');
+dropdownMenu.classList.toggle('hidden');
         }
 
         // Fungsi untuk membuka popup edit data
@@ -493,6 +501,90 @@
                 });
                 tableBody.appendChild(tr);
             });
+        }
+
+        // Fungsi untuk mengekspor tabel ke file Excel
+        function exportTableToExcel() {
+            const table = document.querySelector('table');
+            const workbook = XLSX.utils.table_to_book(table, { sheet: "Sheet1" });
+            XLSX.writeFile(workbook, 'table_data.xlsx');
+        }
+
+        // Fungsi untuk mengekspor tabel ke file PDF
+        async function exportTableToPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const table = document.querySelector('table');
+            const rows = Array.from(table.querySelectorAll('tr')).map(tr => {
+                return Array.from(tr.querySelectorAll('th, td')).map(td => td.textContent);
+            });
+
+            doc.autoTable({
+                head: [rows[0]],
+                body: rows.slice(1),
+            });
+
+            doc.save('table_data.pdf');
+        }
+
+        // Fungsi untuk mencetak tabel
+        function printTable() {
+            const printContents = document.getElementById('dataTable').outerHTML;
+            const originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+            window.location.reload();
+        }
+
+        // Fungsi untuk menghapus pengguna berdasarkan nama
+        function delUserFunction() {
+            const nameToDelete = prompt("Masukkan nama pengguna yang ingin dihapus:");
+            if (nameToDelete) {
+                const tableBody = document.getElementById('tableBody');
+                const rows = Array.from(tableBody.children);
+                rows.forEach(row => {
+                    if (row.children[1].textContent === nameToDelete) {
+                        tableBody.removeChild(row);
+                    }
+                });
+                saveTableData();
+            }
+        }
+
+        // Fungsi untuk menghapus isi kolom (Kurang, M1, M2, M3, M4, Jumlah, Bayar)
+        function clearFunction() {
+            const tableBody = document.getElementById('tableBody');
+            const rows = Array.from(tableBody.children);
+            rows.forEach(row => {
+                row.children[3].textContent = '';
+                row.children[4].textContent = '';
+                row.children[5].textContent = '';
+                row.children[6].textContent = '';
+                row.children[7].textContent = '';
+                row.children[8].textContent = '';
+                row.children[9].textContent = '';
+            });
+            saveTableData();
+        }
+
+        // Fungsi untuk menghapus semua data
+        function delAllFunction() {
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = '';
+            localStorage.removeItem('tableData');
+        }
+
+        // Fungsi untuk mengaktifkan mode layar penuh
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
         }
 
         // Muat data tabel saat halaman dimuat
